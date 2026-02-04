@@ -30,10 +30,9 @@ CALIFONIA_COLS = ['State', 'Fire Name', 'Alarm Date', 'Containment Date', 'Cause
 # Standard column names that we will convert DataFrames into
 STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
 
-# Names of columns in our output data
-WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state', 'fire_name', 'cause_id']
+# Names of columns in our database
+WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state', 'fire_name', 'cause_id', 'containment_date', 'report_date']
 WILDFIRE_SIZE_COLUMN_NAMES = ['wildfire_id', 'size_class', 'acreage']
 WILDFIRE_SIZE_CLASS_COLUMN_NAMES = ['size_class', 'min_acreage', 'max_acreage']
-WILDFIRE_DATE_COLUMN_NAMES = ['wildfire_id', 'containment_date', 'report_date']
 WILDFIRE_LOCATION_COLUMN_NAMES = ['wildfire_id', 'longitude', 'latitude']
 WILDFIRE_CAUSE_COLUMN_NAMES = ['cause_id', 'cause_text']
