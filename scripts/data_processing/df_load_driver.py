@@ -1,0 +1,5 @@
+from data_processing.constants import WILDFIRE_COLUMN_NAMES, WILDFIRE_SIZE_COLUMN_NAMES, WILDFIRE_SIZE_CLASS_COLUMN_NAMES, WILDFIRE_DATE_COLUMN_NAMES, WILDFIRE_CAUSE_COLUMN_NAMES, WILDFIRE_LOCATION_COLUMN_NAMES
+import pandas as pd
+
+def get_data_frames():
+    return pd.DataFrame()
