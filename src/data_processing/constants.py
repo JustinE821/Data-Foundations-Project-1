@@ -1,3 +1,8 @@
+"""
+This file contains a source of truth for constants used in our data processing pipeline. That includes paths to each 
+dataset, lists of relevant columns to load from each dataset, the list of standardized column names, and the lists
+of column names for our database tables.
+"""
 from pathlib import Path
 
 # Paths to datasets

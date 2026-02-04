@@ -1,3 +1,8 @@
+"""
+This file coordinates the execution of step 1 in our data processing pipeline. That is, loading 
+the necessary columns of the raw data into DataFrames, performing validation and converting the 
+data into a standard form.
+"""
 import pandas as pd
 from data_processing.constants import NATIONAL_PATH, NEW_YORK_PATH, OREGON_PATH, CALIFORNIA_PATH
 from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFONIA_COLS
