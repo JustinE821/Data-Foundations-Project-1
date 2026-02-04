@@ -1,3 +1,6 @@
+"""
+The purpose of this file is to provide a convenient area for debugging.
+"""
 from pathlib import Path
 import pandas as pd
 
