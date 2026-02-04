@@ -18,7 +18,7 @@ NATIONAL_COLS = ['LONGITUDE', 'LATITUDE', 'STATE', 'FIRE_NAME', 'DISCOVERY_DATE'
 # Note: New York dataset does not have columns for state or size_class
 # We will have to insert a state column with 'NY' for its values
 # We will have to calculate the size class for each record based on its acreage 
-NEW_YORK_COLS = ['Longitude', 'Latitude', 'Incident Name', 'Fire Start Date', 'Initial Report Date', 'Fire Out Date', 'Cause', 'Acreage'] 
+NEW_YORK_COLS = ['Longitude', 'Latitude', 'Incident Name', 'Initial Report Date', 'Fire Out Date', 'Cause', 'Acreage'] 
 # Note: Oregon dataset does not have a state column
 # We will have to insert a state column with 'OR' for its values
 OREGON_COLS = ['Long_DD', 'Lat_DD', 'FireName', 'ReportDateTime', 'Control_DateTime', 'GeneralCause', 'EstTotalAcres', 'Size_class']
