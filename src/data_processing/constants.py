@@ -30,6 +30,40 @@ CALIFORNIA_COLS = ['State', 'Fire Name', 'Alarm Date', 'Containment Date', 'Caus
 # Standard column names that we will convert DataFrames into
 STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
 
+# Dictionary for mapping 
+cause_dict = {
+    'Lightning': 1, 
+    'Debris Burning': 2, 
+    'Incendiary': 3,
+    'Power line': 4,
+    'Equipment': 5,
+    'Children': 9,
+    'Prescribed Fire': 10,
+    'Campfire': 2,
+    'Miscellaneous': 10,
+    'Power Line': 4,
+    'Smoking': 8,
+    'Equipment': 5,
+    'Fireworks': 7,
+    'Railroad': 6,
+    'Structure': 10,
+    'Power generation/transmission/distribution': 4,
+    'Natural': 1,
+    'Debris and open burning': 2,
+    'Missing data/not specified/undetermined': 11,
+    'Recreation and ceremony': 2,
+    'Equipment and vehicle use': 5,
+    'Arson/incendiarism': 3,
+    'Fireworks': 7,
+    'Other causes': 10,
+    'Railroad operations and maintenance': 6,
+    'Smoking': 8,
+    'Misuse of fire by a minor': 9,
+    'Firearms and explosives use': 10
+
+
+}
+
 # Names of columns in our database
 WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state', 'fire_name', 'cause_id', 'containment_date', 'report_date']
 WILDFIRE_SIZE_COLUMN_NAMES = ['wildfire_id', 'size_class', 'acreage']
