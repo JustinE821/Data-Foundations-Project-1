@@ -8,6 +8,5 @@ from data_processing.constants import cause_dict
 def cause_converter(cause):
     # for entry in cause:
     #     entry = cause_dict[entry]
-    print(type(cause))
 
     return cause_dict[cause]
