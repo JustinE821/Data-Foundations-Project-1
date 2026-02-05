@@ -25,7 +25,7 @@ OREGON_COLS = ['Long_DD', 'Lat_DD', 'FireName', 'ReportDateTime', 'Control_DateT
 # Note: California dataset does not have longitude, latitude, and size_class columns
 # We will have to insert longitude and latitude columns with null values
 # We will have to calculate the size class for each record based on its acreage
-CALIFONIA_COLS = ['State', 'Fire Name', 'Alarm Date', 'Containment Date', 'Cause', 'GIS Calculated Acres']
+CALIFORNIA_COLS = ['State', 'Fire Name', 'Alarm Date', 'Containment Date', 'Cause', 'GIS Calculated Acres']
 
 # Standard column names that we will convert DataFrames into
 STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
