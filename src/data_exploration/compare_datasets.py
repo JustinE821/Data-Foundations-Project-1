@@ -23,6 +23,7 @@ The purpose of this file is to provide a convenient area for debugging.
 from ..data_processing.constants import NATIONAL_PATH, NATIONAL_COLS, NEW_YORK_PATH, NEW_YORK_COLS, OREGON_PATH, OREGON_COLS, CALIFORNIA_PATH, CALIFORNIA_COLS
 import pandas as pd
 
+
 chunk_list = []
 for chunk in pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, chunksize=10000):
     chunk_list.append(chunk)
