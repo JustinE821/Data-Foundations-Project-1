@@ -7,6 +7,7 @@ import pandas as pd
 from data_processing.constants import NATIONAL_PATH, NEW_YORK_PATH, OREGON_PATH, CALIFORNIA_PATH
 from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFORNIA_COLS
 from data_processing.constants import STANDARD_COLUMN_NAMES
+from data_processing.converter_functions import cause_converter
 
 def compute_date_cols(column_list):
     return [column for column in column_list if "date" in column.lower()]
@@ -22,16 +23,18 @@ def get_data_frames():
     oregon_date_columns = compute_date_cols(OREGON_COLS)
     california_date_columns = compute_date_cols(CALIFORNIA_COLS)
 
-    national_converters = {}
-    new_york_converters = {}
-    oregon_converters = {}
-    california_converters = {}
+    national_converters = {'NWCG_GENERAL_CAUSE': cause_converter}
+    new_york_converters = {'Cause': cause_converter}
+    oregon_converters = {} # 'GeneralCause': cause_converter
+    california_converters = {} # 'Cause': cause_converter
 
 
     national_df = pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, nrows=20, parse_dates=national_date_columns, converters=national_converters)
     new_york_df = pd.read_csv(NEW_YORK_PATH, usecols=NEW_YORK_COLS, nrows=5, parse_dates=new_york_date_columns, converters=new_york_converters)
     oregon_df = pd.read_csv(OREGON_PATH, usecols=OREGON_COLS, nrows=5, parse_dates=oregon_date_columns, converters=oregon_converters)
     california_df = pd.read_csv(CALIFORNIA_PATH, usecols=CALIFORNIA_COLS, nrows=5, parse_dates=california_date_columns, converters=california_converters)
+
+
 
     # Convert datetime columns into date columns
     # New York dataset is already in date format
