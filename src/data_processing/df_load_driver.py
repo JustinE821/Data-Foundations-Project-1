@@ -28,7 +28,7 @@ def get_data_frames():
     california_converters = {}
 
 
-    national_df = pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, nrows=5, parse_dates=national_date_columns, converters=national_converters)
+    national_df = pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, nrows=20, parse_dates=national_date_columns, converters=national_converters)
     new_york_df = pd.read_csv(NEW_YORK_PATH, usecols=NEW_YORK_COLS, nrows=5, parse_dates=new_york_date_columns, converters=new_york_converters)
     oregon_df = pd.read_csv(OREGON_PATH, usecols=OREGON_COLS, nrows=5, parse_dates=oregon_date_columns, converters=oregon_converters)
     california_df = pd.read_csv(CALIFORNIA_PATH, usecols=CALIFORNIA_COLS, nrows=5, parse_dates=california_date_columns, converters=california_converters)
