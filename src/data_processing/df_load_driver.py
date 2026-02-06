@@ -24,12 +24,8 @@ def get_data_frames():
     national_list = []
     for chunk in pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, parse_dates=national_date_columns, date_format="%Y/%m/%d %H:%M:%S+00", converters=national_converters, engine="c", chunksize=10000):
         national_list.append(chunk)
-        
     national_df = pd.concat(national_list, ignore_index=True)
-
     new_york_df = pd.read_csv(NEW_YORK_PATH, usecols=NEW_YORK_COLS, parse_dates=new_york_date_columns, converters=new_york_converters)
-    
-
     oregon_df = pd.read_csv(OREGON_PATH, usecols=OREGON_COLS, parse_dates=oregon_date_columns, date_format="%m/%d/%Y %I:%M:%S %p", converters=oregon_converters)
     california_df = pd.read_csv(CALIFORNIA_PATH, usecols=CALIFORNIA_COLS, parse_dates=california_date_columns, converters=california_converters)
 
@@ -43,11 +39,9 @@ def get_data_frames():
     convert_datetime_to_date(oregon_df, oregon_date_columns)
     convert_datetime_to_date(california_df, california_date_columns)
 
-
     # Fill simple missing columns
     california_df['longitude'] = None
     california_df['latitude'] = None
-
     new_york_df['state'] = 'NY'
     oregon_df['state'] = 'OR'
 
