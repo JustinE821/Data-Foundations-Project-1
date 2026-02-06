@@ -25,8 +25,8 @@ def get_data_frames():
 
     national_converters = {'NWCG_GENERAL_CAUSE': cause_converter}
     new_york_converters = {'Cause': cause_converter}
-    oregon_converters = {} # 'GeneralCause': cause_converter
-    california_converters = {} # 'Cause': cause_converter
+    oregon_converters = {'GeneralCause': cause_converter}
+    california_converters = {'Cause': cause_converter}
 
     national_list = []
     for chunk in pd.read_csv(NATIONAL_PATH, usecols=NATIONAL_COLS, parse_dates=national_date_columns, date_format="%Y/%m/%d %H:%M:%S+00", converters=national_converters, engine="c", chunksize=10000):
