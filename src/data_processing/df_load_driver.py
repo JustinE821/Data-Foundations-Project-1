@@ -9,7 +9,7 @@ from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS,
 from data_processing.converter_functions import cause_converter
 from data_processing.standardize_columns import compute_date_cols, convert_datetime_to_date, create_size_class, standardize_column_names
 
-def get_data_frames():
+def get_dataframes():
     national_date_columns = compute_date_cols(NATIONAL_COLS)
     new_york_date_columns = compute_date_cols(NEW_YORK_COLS)
     oregon_date_columns = compute_date_cols(OREGON_COLS)
