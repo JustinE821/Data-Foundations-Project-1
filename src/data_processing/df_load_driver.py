@@ -7,7 +7,7 @@ import pandas as pd
 from data_processing.constants import NATIONAL_PATH, NEW_YORK_PATH, OREGON_PATH, CALIFORNIA_PATH
 from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFORNIA_COLS
 from data_processing.constants import STANDARD_COLUMN_NAMES
-from data_processing.converter_functions import cause_converter, size_converter
+from data_processing.converter_functions import cause_converter
 
 def compute_date_cols(column_list):
     return [column for column in column_list if "date" in column.lower()]
@@ -18,7 +18,6 @@ def convertDatetimeToDate(df, date_columns):
 
 def create_size_class(df, ACREAGE_COL):
     acreage = df[ACREAGE_COL]
-    print(len(acreage))
     size_class_list = list()
     for i in range(len(acreage)):
         entry = acreage[i]
