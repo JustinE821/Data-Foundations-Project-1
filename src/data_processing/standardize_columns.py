@@ -5,7 +5,6 @@ to transform our DataFrames for each dataset into a standard form.
 import pandas as pd
 from data_processing.constants import NATIONAL_TO_STANDARD_COLUMN_MAPPING, NEW_YORK_TO_STANDARD_COLUMN_MAPPING
 from data_processing.constants import OREGON_TO_STANDARD_COLUMN_MAPPING, CALIFORNIA_TO_STANDARD_COLUMN_MAPPING
-from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFORNIA_COLS
 
 def compute_date_cols(column_list):
     return [column for column in column_list if "date" in column.lower()]
@@ -42,3 +41,4 @@ def standardize_column_names(national_df, new_york_df, oregon_df, california_df)
     new_york_df.rename(columns=NEW_YORK_TO_STANDARD_COLUMN_MAPPING, inplace=True)
     oregon_df.rename(columns=OREGON_TO_STANDARD_COLUMN_MAPPING, inplace=True)
     california_df.rename(columns=CALIFORNIA_TO_STANDARD_COLUMN_MAPPING, inplace=True)
+    

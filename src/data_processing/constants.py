@@ -22,7 +22,7 @@ NEW_YORK_TO_STANDARD_COLUMN_MAPPING = {'Longitude': 'longitude', 'Latitude': 'la
 OREGON_TO_STANDARD_COLUMN_MAPPING = {'Long_DD': 'longitude', 'Lat_DD': 'latitude', 'FireName': 'fire_name', 'ReportDateTime': 'report_date', 'Control_DateTime': 'containment_date', 'GeneralCause': 'cause', 'EstTotalAcres': 'acreage', 'Size_class': 'size_class'}
 CALIFORNIA_TO_STANDARD_COLUMN_MAPPING = {'State': 'state', 'Fire Name': 'fire_name', 'Alarm Date': 'report_date', 'Containment Date': 'containment_date', 'Cause': 'cause', 'GIS Calculated Acres': 'acreage'}
 
-# Column names computed based on the mappings so that you only have to change the column names in one place
+# Column names computed based on the mappings so that you only have to set the column names once
 NATIONAL_COLS = NATIONAL_TO_STANDARD_COLUMN_MAPPING.keys()
 NEW_YORK_COLS = NEW_YORK_TO_STANDARD_COLUMN_MAPPING.keys()
 OREGON_COLS = OREGON_TO_STANDARD_COLUMN_MAPPING.keys()
