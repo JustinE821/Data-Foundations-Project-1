@@ -43,4 +43,13 @@ def get_data_frames():
     convert_datetime_to_date(oregon_df, oregon_date_columns)
     convert_datetime_to_date(california_df, california_date_columns)
 
+
+    # Fill simple missing columns
+    california_df['longitude'] = None
+    california_df['latitude'] = None
+
+    new_york_df['state'] = 'NY'
+    oregon_df['state'] = 'OR'
+
+
     return [national_df, new_york_df, oregon_df, california_df]
