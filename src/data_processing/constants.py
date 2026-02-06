@@ -13,24 +13,23 @@ NEW_YORK_PATH = CSV_FILES_DIR_RELATIVE_PATH / 'New_York_State_Forest_Ranger_Wild
 OREGON_PATH = CSV_FILES_DIR_RELATIVE_PATH / 'ODF_Fire_Occurrence_Data_2000-2022.csv'
 CALIFORNIA_PATH = CSV_FILES_DIR_RELATIVE_PATH / 'California_Historic_Fire_Perimeters_-6236829869961296710.csv'
 
-# Names of relevant columns in raw datasets
-NATIONAL_COLS = ['LONGITUDE', 'LATITUDE', 'STATE', 'FIRE_NAME', 'DISCOVERY_DATE', 'CONT_DATE', 'NWCG_GENERAL_CAUSE', 'FIRE_SIZE', 'FIRE_SIZE_CLASS']
-# Note: New York dataset does not have columns for state or size_class
-# We will have to insert a state column with 'NY' for its values
-# We will have to calculate the size class for each record based on its acreage 
-NEW_YORK_COLS = ['Longitude', 'Latitude', 'Incident Name', 'Initial Report Date', 'Fire Out Date', 'Cause', 'Acreage'] 
-# Note: Oregon dataset does not have a state column
-# We will have to insert a state column with 'OR' for its values
-OREGON_COLS = ['Long_DD', 'Lat_DD', 'FireName', 'ReportDateTime', 'Control_DateTime', 'GeneralCause', 'EstTotalAcres', 'Size_class']
-# Note: California dataset does not have longitude, latitude, and size_class columns
-# We will have to insert longitude and latitude columns with null values
-# We will have to calculate the size class for each record based on its acreage
-CALIFORNIA_COLS = ['State', 'Fire Name', 'Alarm Date', 'Containment Date', 'Cause', 'GIS Calculated Acres']
-
 # Standard column names that we will convert DataFrames into
 STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
 
-# Dictionary for mapping 
+# Mappings for renaming our columns into a standard format
+NATIONAL_TO_STANDARD_COLUMN_MAPPING = {'LONGITUDE': 'longitude', 'LATITUDE': 'latitude', 'STATE': 'state', 'FIRE_NAME': 'fire_name', 'DISCOVERY_DATE': 'report_date', 'CONT_DATE': 'containment_date', 'NWCG_GENERAL_CAUSE': 'cause', 'FIRE_SIZE': 'acreage', 'FIRE_SIZE_CLASS': 'size_class'}
+NEW_YORK_TO_STANDARD_COLUMN_MAPPING = {'Longitude': 'longitude', 'Latitude': 'latitude', 'Incident Name': 'fire_name', 'Initial Report Date': 'report_date', 'Fire Out Date': 'containment_date', 'Cause': 'cause', 'Acreage': 'acreage'}
+OREGON_TO_STANDARD_COLUMN_MAPPING = {'Long_DD': 'longitude', 'Lat_DD': 'latitude', 'FireName': 'fire_name', 'ReportDateTime': 'report_date', 'Control_DateTime': 'containment_date', 'GeneralCause': 'cause', 'EstTotalAcres': 'acreage', 'Size_class': 'size_class'}
+CALIFORNIA_TO_STANDARD_COLUMN_MAPPING = {'State': 'state', 'Fire Name': 'fire_name', 'Alarm Date': 'report_date', 'Containment Date': 'containment_date', 'Cause': 'cause', 'GIS Calculated Acres': 'acreage'}
+
+# Column names computed based on the mappings so that you only have to change the column names in one place
+NATIONAL_COLS = NATIONAL_TO_STANDARD_COLUMN_MAPPING.keys()
+NEW_YORK_COLS = NEW_YORK_TO_STANDARD_COLUMN_MAPPING.keys()
+OREGON_COLS = OREGON_TO_STANDARD_COLUMN_MAPPING.keys()
+CALIFORNIA_COLS = CALIFORNIA_TO_STANDARD_COLUMN_MAPPING.keys()
+# If we want to load additional columns later on, append those column names to the above lists
+
+# Dictionary for mapping causes from each dataset to a standard set of causes 
 cause_dict = {
     'Lightning': 1, 
     'Debris Burning': 2, 

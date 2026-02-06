@@ -7,7 +7,7 @@ import pandas as pd
 from data_processing.constants import NATIONAL_PATH, NEW_YORK_PATH, OREGON_PATH, CALIFORNIA_PATH
 from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFORNIA_COLS
 from data_processing.converter_functions import cause_converter
-from data_processing.standardize_columns import compute_date_cols, convert_datetime_to_date, create_size_class
+from data_processing.standardize_columns import compute_date_cols, convert_datetime_to_date, create_size_class, standardize_column_names
 
 
 def get_data_frames():
@@ -34,8 +34,8 @@ def get_data_frames():
     california_df = pd.read_csv(CALIFORNIA_PATH, usecols=CALIFORNIA_COLS, parse_dates=california_date_columns, converters=california_converters)
 
     # Obtain the fire size classification for each entry
-    new_york_df['Size Class'] = create_size_class(new_york_df, 'Acreage')
-    california_df['Size Class'] = create_size_class(california_df, 'GIS Calculated Acres')
+    new_york_df['size_class'] = create_size_class(new_york_df, 'Acreage')
+    california_df['size_class'] = create_size_class(california_df, 'GIS Calculated Acres')
 
     # Convert datetime columns into date columns
     # New York dataset is already in date format
@@ -51,5 +51,6 @@ def get_data_frames():
     new_york_df['state'] = 'NY'
     oregon_df['state'] = 'OR'
 
+    standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
 
     return [national_df, new_york_df, oregon_df, california_df]
