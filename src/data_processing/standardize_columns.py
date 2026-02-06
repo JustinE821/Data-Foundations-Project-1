@@ -41,4 +41,5 @@ def standardize_column_names(national_df, new_york_df, oregon_df, california_df)
     new_york_df = new_york_df.rename(columns=NEW_YORK_TO_STANDARD_COLUMN_MAPPING)
     oregon_df = oregon_df.rename(columns=OREGON_TO_STANDARD_COLUMN_MAPPING)
     california_df = california_df.rename(columns=CALIFORNIA_TO_STANDARD_COLUMN_MAPPING)
+    return [national_df, new_york_df, oregon_df, california_df]
     

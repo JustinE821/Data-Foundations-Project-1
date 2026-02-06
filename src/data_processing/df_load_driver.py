@@ -44,6 +44,6 @@ def get_data_frames():
     new_york_df['state'] = 'NY'
     oregon_df['state'] = 'OR'
 
-    standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
+    [national_df, new_york_df, oregon_df, california_df] = standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
 
     return [national_df, new_york_df, oregon_df, california_df]
