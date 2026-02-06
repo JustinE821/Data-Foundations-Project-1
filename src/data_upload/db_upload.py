@@ -8,6 +8,11 @@ from psycopg2 import sql
 from data_upload.db_connection import init_conn
 
 def create_wildfire_entries(df):
+     
+     
+     
+     
+     
      return 0
 
 

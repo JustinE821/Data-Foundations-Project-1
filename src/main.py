@@ -7,8 +7,8 @@ each step in our data processing pipeline.
 4. Write the resulting DataFrames to the database.
 """
 from data_processing.df_load_driver import get_data_frames
-from data_upload.db_connection import init_conn
 from data_processing.combine_dataframes import combine_dataframes
+from data_upload.db_upload import create_wildfire_entries
 
 def main():
     # Load data and standardize
@@ -36,7 +36,7 @@ def main():
     print(california_df.head())
     print('-----------------------')
 
-    init_conn()
+    create_wildfire_entries()
 
 if __name__ == "__main__":
     main()
