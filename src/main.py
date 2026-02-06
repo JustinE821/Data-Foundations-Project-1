@@ -8,14 +8,18 @@ each step in our data processing pipeline.
 """
 from data_processing.df_load_driver import get_data_frames
 from data_upload.db_connection import init_conn
+from data_processing.combine_dataframes import combine_dataframes
 
 def main():
     # Load data and standardize
-    [national_df, new_york_df, oregon_df, california_df] = get_data_frames()
+    df_list = get_data_frames()
+    [national_df, new_york_df, oregon_df, california_df] = df_list
 
     # Combine DataFrames and drop duplicates
+    combined_df = combine_dataframes(df_list)
 
     # Break DataFrame into tables
+    
 
     # Write data to db
     print('-----------------------')
