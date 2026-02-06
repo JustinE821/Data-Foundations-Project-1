@@ -42,7 +42,6 @@ cause_dict = {
     'Campfire': 2,
     'Miscellaneous': 10,
     'Power Line': 4,
-    'Smoking': 8,
     'Equipment': 5,
     'Fireworks': 7,
     'Railroad': 6,
@@ -59,9 +58,31 @@ cause_dict = {
     'Railroad operations and maintenance': 6,
     'Smoking': 8,
     'Misuse of fire by a minor': 9,
-    'Firearms and explosives use': 10
-
-
+    'Firearms and explosives use': 10,
+    'Under Invest': 11,
+    'Arson': 3,
+    'Equipment Use': 5,
+    'Recreation': 2,
+    'Juveniles': 9,
+    '1': 1,
+    '2': 5,
+    '3': 8,
+    '4': 2,
+    '5': 2,
+    '6': 6,
+    '7': 3,
+    '8': 9,
+    '9': 10,
+    '10': 5,
+    '11': 4,
+    '12': 10,
+    '13': 10,
+    '14': 11,
+    '15': 10,
+    '16': 5,
+    '17': 1,
+    '18': 10,
+    '19': 2
 }
 
 # Names of columns in our database
