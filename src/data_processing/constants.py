@@ -87,6 +87,6 @@ cause_dict = {
 # Names of columns in our database
 WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state', 'fire_name', 'cause_id', 'containment_date', 'report_date']
 WILDFIRE_SIZE_COLUMN_NAMES = ['wildfire_id', 'size_class', 'acreage']
-WILDFIRE_SIZE_CLASS_COLUMN_NAMES = ['size_class', 'min_acreage', 'max_acreage']
+# WILDFIRE_SIZE_CLASS_COLUMN_NAMES = ['size_class', 'min_acreage', 'max_acreage']
 WILDFIRE_LOCATION_COLUMN_NAMES = ['wildfire_id', 'longitude', 'latitude']
-WILDFIRE_CAUSE_COLUMN_NAMES = ['cause_id', 'cause_text']
+# WILDFIRE_CAUSE_COLUMN_NAMES = ['cause_id', 'cause_text']
