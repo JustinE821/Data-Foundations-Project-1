@@ -8,7 +8,3 @@ from data_processing.constants import cause_dict
 #Function remaps the cause of a wildfire to reflect the database format used
 def cause_converter(cause):
     return cause_dict[cause]
-
-def size_converter(acreage):
-    print("toodlooo")
-    return 0
