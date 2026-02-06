@@ -37,8 +37,8 @@ def create_size_class(df, ACREAGE_COL):
     return size_class
 
 def standardize_column_names(national_df, new_york_df, oregon_df, california_df):
-    national_df.rename(columns=NATIONAL_TO_STANDARD_COLUMN_MAPPING, inplace=True)
-    new_york_df.rename(columns=NEW_YORK_TO_STANDARD_COLUMN_MAPPING, inplace=True)
-    oregon_df.rename(columns=OREGON_TO_STANDARD_COLUMN_MAPPING, inplace=True)
-    california_df.rename(columns=CALIFORNIA_TO_STANDARD_COLUMN_MAPPING, inplace=True)
+    national_df = national_df.rename(columns=NATIONAL_TO_STANDARD_COLUMN_MAPPING)
+    new_york_df = new_york_df.rename(columns=NEW_YORK_TO_STANDARD_COLUMN_MAPPING)
+    oregon_df = oregon_df.rename(columns=OREGON_TO_STANDARD_COLUMN_MAPPING)
+    california_df = california_df.rename(columns=CALIFORNIA_TO_STANDARD_COLUMN_MAPPING)
     
