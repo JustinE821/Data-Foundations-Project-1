@@ -18,7 +18,6 @@ def convertDatetimeToDate(df, date_columns):
 
 def create_size_class(df, ACREAGE_COL):
     acreage = df[ACREAGE_COL]
-    print(len(acreage))
     size_class_list = list()
     for i in range(len(acreage)):
         entry = acreage[i]
