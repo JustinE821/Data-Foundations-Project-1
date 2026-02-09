@@ -16,7 +16,7 @@ def get_data_frames():
     california_date_columns = compute_date_cols(CALIFORNIA_COLS)
 
     national_converters = {'NWCG_GENERAL_CAUSE': cause_converter}
-    new_york_converters = {'Cause': cause_converter} #  ('Acreage', 'Size Class'): size_converter
+    new_york_converters = {'Cause': cause_converter}
     oregon_converters = {'GeneralCause': cause_converter}
     california_converters = {'Cause': cause_converter}
 
