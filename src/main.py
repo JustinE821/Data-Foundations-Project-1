@@ -49,8 +49,8 @@ def main():
 
     init_conn()
     
-    #show_original_dataframes(*df_list)
-    #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
+    show_original_dataframes(*df_list)
+    show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
 if __name__ == "__main__":
     main()
