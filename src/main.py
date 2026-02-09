@@ -10,19 +10,10 @@ from data_processing.df_load_driver import get_data_frames
 from data_processing.combine_dataframes import combine_dataframes
 from data_upload.db_upload import create_wildfire_entries
 from data_upload.db_connection import init_conn
+from data_processing.split_dataframes import split_dataframes
 
-def main():
-    # Load data and standardize
-    df_list = get_data_frames()
-    [national_df, new_york_df, oregon_df, california_df] = df_list
 
-    # Combine DataFrames and drop duplicates
-    combined_df = combine_dataframes(df_list)
-
-    # Break DataFrame into tables
-    
-
-    # Write data to db
+def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):
     print('-----------------------')
     print("National DF")
     print(national_df.head())
@@ -39,6 +30,9 @@ def main():
 
     #create_wildfire_entries()
     init_conn()
+    
+    #show_original_dataframes(*df_list)
+    #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
 if __name__ == "__main__":
     main()
