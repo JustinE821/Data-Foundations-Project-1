@@ -7,9 +7,10 @@ each step in our data processing pipeline.
 4. Write the resulting DataFrames to the database.
 """
 from data_processing.df_load_driver import get_dataframes
-from data_upload.db_connection import init_conn
 from data_processing.combine_dataframes import combine_dataframes
 from data_processing.split_dataframes import split_dataframes
+from data_upload.db_connection import init_conn
+from data_upload.db_upload import create_wildfire_entries
 
 def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):
     print('-----------------------')
@@ -41,16 +42,18 @@ def main():
 
     # Combine DataFrames and drop duplicates
     combined_df = combine_dataframes(df_list)
+    #print(combined_df.shape)
     
     # Break DataFrame into tables
     [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
 
     # Write data to db
 
-    init_conn()
-    
-    show_original_dataframes(*df_list)
-    show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
+    #init_conn()
+    create_wildfire_entries(wildfire_df)
+
+    #show_original_dataframes(*df_list)
+    #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
 if __name__ == "__main__":
     main()

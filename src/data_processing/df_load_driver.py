@@ -7,7 +7,7 @@ import pandas as pd
 from data_processing.constants import NATIONAL_PATH, NEW_YORK_PATH, OREGON_PATH, CALIFORNIA_PATH
 from data_processing.constants import NATIONAL_COLS, NEW_YORK_COLS, OREGON_COLS, CALIFORNIA_COLS
 from data_processing.converter_functions import cause_converter
-from data_processing.standardize_columns import compute_date_cols, convert_datetime_to_date, create_size_class, standardize_column_names
+from data_processing.standardize_columns import compute_date_cols, convert_datetime_to_date, create_size_class, standardize_column_names, limit_date_range
 
 def get_dataframes():
     national_date_columns = compute_date_cols(NATIONAL_COLS)
@@ -45,5 +45,11 @@ def get_dataframes():
     oregon_df['state'] = 'OR'
 
     [national_df, new_york_df, oregon_df, california_df] = standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
+
+    national_df = limit_date_range(national_df)
+    # new_york_df = limit_date_range(new_york_df)
+    # oregon_df = limit_date_range(oregon_df)
+    # california_df = limit_date_range(california_df)
+    
 
     return [national_df, new_york_df, oregon_df, california_df]
