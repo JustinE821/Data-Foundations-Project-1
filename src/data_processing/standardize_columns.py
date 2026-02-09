@@ -2,6 +2,7 @@
 This file contains the functions for computing missing columns and renaming columns
 to transform our DataFrames for each dataset into a standard form.
 """
+import datetime
 import pandas as pd
 from data_processing.constants import NATIONAL_TO_STANDARD_COLUMN_MAPPING, NEW_YORK_TO_STANDARD_COLUMN_MAPPING
 from data_processing.constants import OREGON_TO_STANDARD_COLUMN_MAPPING, CALIFORNIA_TO_STANDARD_COLUMN_MAPPING
@@ -12,6 +13,14 @@ def compute_date_cols(column_list):
 def convert_datetime_to_date(df, date_columns):
     df[date_columns[0]] = df[date_columns[0]].dt.date
     df[date_columns[1]] = df[date_columns[1]].dt.date
+
+
+def limit_date_range(df):
+    START_DATE = datetime.date(2010, 1, 1)
+    END_DATE = datetime.date(2019, 12, 31)
+    df = df[(df['report_date'] >= START_DATE) & (df['report_date'] <= END_DATE)]
+    
+    return df
 
 def create_size_class(df, ACREAGE_COL):
     acreage = df[ACREAGE_COL]
@@ -30,8 +39,10 @@ def create_size_class(df, ACREAGE_COL):
             size_class_list.append('E')
         elif entry < 5000.0:
             size_class_list.append('F')
-        else:
+        elif entry < 1000000.0:
             size_class_list.append('G')
+        else:
+            size_class_list.append('?')
 
     size_class = pd.Series(size_class_list)
     return size_class

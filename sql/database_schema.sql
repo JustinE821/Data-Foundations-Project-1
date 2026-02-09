@@ -9,7 +9,7 @@ CREATE TABLE WildfireCause (
 
 
 CREATE TABLE Wildfire (
-	wildfire_id SERIAL PRIMARY KEY,
+	wildfire_id INT PRIMARY KEY,
 	state_id VARCHAR(2) NOT NULL,
 	fire_name TEXT NOT NULL,
 	containment_date DATE NOT NULL,

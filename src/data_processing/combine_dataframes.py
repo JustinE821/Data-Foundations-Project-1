@@ -5,6 +5,7 @@ of fire_name, report_date, and state, it drops duplicates. The dropped duplicate
 written to log files.
 """
 import pandas as pd
+from data_processing.standardize_columns import limit_date_range
 
 def combine_dataframes(standardized_dataframe_list):
     combined_df = pd.concat(standardized_dataframe_list, axis=0, join='inner', ignore_index=True)
