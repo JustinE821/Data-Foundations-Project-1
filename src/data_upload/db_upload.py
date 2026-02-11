@@ -13,30 +13,28 @@ def create_wildfire_entries(df):
      try:
           engine = init_conn()
 
+          conn = engine.connect()
           df = df.head(10000)
           for index in range(10000):
 
-               entry = df.iloc[index]
+               entry = df.iloc[index].to_dict()
                if(pd.isna(entry['containment_date'])):
                     entry['containment_date']  = entry['report_date']
-                    print("foooloo")
+
+               print(index)
+               print(entry)
                
-               sql = f'''INSERT INTO Wildfire(wildfire_id, state, fire_name, cause_id, containment_date, report_date) 
-                    VALUES({entry['wildfire_id']}, '{entry['state']}', '{entry['fire_name']}', {entry['cause_id']}, '{entry['containment_date']}', '{entry['report_date']}') ON CONFLICT DO NOTHING'''
-               query = text(sql)
-               with engine.connect() as conn:
-                    conn.execute(query)
-                    conn.commit()
+               query = text("INSERT INTO Wildfire(wildfire_id, state, fire_name, cause_id, containment_date, report_date) VALUES(:wildfire_id, :state, :fire_name, :cause_id, :containment_date, :report_date) ON CONFLICT DO NOTHING")
+               conn.execute(query, entry)
+          
+          conn.commit()
 
      except Exception as e:
           print(e)
      finally:
           print("Query complete")
-          # if conn:
-          #      conn.close()
-     
-     
-     
+          if conn:
+               conn.close()
      return 0
 
 
