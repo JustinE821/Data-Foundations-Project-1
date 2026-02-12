@@ -12,7 +12,7 @@ CREATE TABLE Wildfire (
 	wildfire_id INT PRIMARY KEY,
 	state_id VARCHAR(2) NOT NULL,
 	fire_name TEXT NOT NULL,
-	containment_date DATE NOT NULL,
+	containment_date DATE,
 	report_date DATE NOT NULL,
 	cause_id INT REFERENCES WildfireCause (cause_id)
 );
@@ -26,8 +26,8 @@ CREATE TABLE WildfireLocation (
 
 CREATE TABLE WildfireSizeClass (
 	size_class VARCHAR(1) PRIMARY KEY,
-	min_acreage DECIMAL(6,2) NOT NULL,
-	max_acreage DECIMAL(9,2) NOT NULL
+	min_acreage DECIMAL(6,2),
+	max_acreage DECIMAL(9,2)
 );
 
 CREATE TABLE WildfireSize (

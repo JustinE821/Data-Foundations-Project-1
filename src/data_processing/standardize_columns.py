@@ -42,7 +42,7 @@ def create_size_class(df, ACREAGE_COL):
         elif entry < 1000000.0:
             size_class_list.append('G')
         else:
-            size_class_list.append('?')
+            size_class_list.append(None)
 
     size_class = pd.Series(size_class_list)
     return size_class
