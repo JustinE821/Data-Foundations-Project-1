@@ -47,13 +47,13 @@ def main():
     [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
 
     # Write data to db
-    #create_wildfire_entries(wildfire_df)
+    create_wildfire_entries(wildfire_df)
 
     # Write data to location table
     #create_wildfire_location_entries(wildfire_location_df)
 
     # Write data to the size table
-    create_wildfire_size_entries(wildfire_size_df)
+    #create_wildfire_size_entries(wildfire_size_df)
 
     #show_original_dataframes(*df_list)
     #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)

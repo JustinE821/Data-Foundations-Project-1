@@ -60,8 +60,6 @@ def create_wildfire_entries(df):
                          entry = df.iloc[index].to_dict()
                          if(pd.isna(entry['containment_date'])):
                               entry['containment_date']  = entry['report_date']
-                         print(index)
-                         print(entry)
                          
                          query = text("INSERT INTO Wildfire(wildfire_id, state, fire_name, cause_id, containment_date, report_date) VALUES(:wildfire_id, :state, :fire_name, :cause_id, :containment_date, :report_date) ON CONFLICT DO NOTHING")           
                          conn.execute(query, entry)
@@ -69,6 +67,7 @@ def create_wildfire_entries(df):
                conn.commit()
                start += 1000
                end += 1000
+               print(start)
 
      except Exception as e:
           print("ERROR: ", e)
@@ -96,7 +95,6 @@ def create_wildfire_location_entries(df):
 
                          entry = df.iloc[index].to_dict()
                          print(index)
-                         print(entry)
                          if entry['longitude'] != None:
                               query = text("INSERT INTO WildfireLocation(wildfire_id, longitude, latitude) VALUES(:wildfire_id, :longitude, :latitude) ON CONFLICT DO NOTHING")           
                               conn.execute(query, entry)
@@ -104,6 +102,7 @@ def create_wildfire_location_entries(df):
                conn.commit()
                start += 1000
                end += 1000
+               print(start)
 
      except Exception as e:
           print("ERROR: ", e)
@@ -125,17 +124,14 @@ def create_wildfire_size_entries(df):
           while l > end:
                if len(conn.execute(text(f"SELECT * FROM WildfireSize WHERE wildfire_id={df.iloc[start]['wildfire_id']}")).fetchall()) == 0:
                     for index in range(start, end):
-
                          entry = df.iloc[index].to_dict()
-                         print(index)
-                         print(entry)
-                         
                          query = text("INSERT INTO WildfireSize(wildfire_id, size_class, acreage) VALUES(:wildfire_id, :size_class, :acreage) ON CONFLICT DO NOTHING")           
                          conn.execute(query, entry)
                
                conn.commit()
                start += 1000
                end += 1000
+               print(start)
 
      except Exception as e:
           print("ERROR: ", e)
