@@ -9,8 +9,7 @@ each step in our data processing pipeline.
 from data_processing.df_load_driver import get_dataframes
 from data_processing.combine_dataframes import combine_dataframes
 from data_processing.split_dataframes import split_dataframes
-from data_upload.db_connection import init_conn
-from data_upload.db_upload import create_wildfire_entries
+from data_upload.db_upload import create_wildfire_entries, create_wildfire_location_entries, create_wildfire_size_entries
 
 def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):
     print('-----------------------')
@@ -48,9 +47,13 @@ def main():
     [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
 
     # Write data to db
+    #create_wildfire_entries(wildfire_df)
 
-    #init_conn()
-    create_wildfire_entries(wildfire_df)
+    # Write data to location table
+    #create_wildfire_location_entries(wildfire_location_df)
+
+    # Write data to the size table
+    create_wildfire_size_entries(wildfire_size_df)
 
     #show_original_dataframes(*df_list)
     #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
