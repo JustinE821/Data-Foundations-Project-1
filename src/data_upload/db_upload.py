@@ -11,6 +11,7 @@ from data_upload.table_models import wildfire_table, wildfire_size_table, wildfi
 # 619,924 total records to upload as of me writing this
 ROW_LIMIT = 40_000
 BATCH_SIZE = 5_000
+START_INDEX = 0
 
 def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
      
@@ -27,7 +28,7 @@ def upload_table(df, engine, table):
      stmt = insert(table).on_conflict_do_nothing(index_elements=['wildfire_id']).returning(table)
      try:
           with engine.connect() as conn:
-               for index in range(0, ROW_LIMIT, BATCH_SIZE):
+               for index in range(START_INDEX, ROW_LIMIT, BATCH_SIZE):
                     batch_df = df.iloc[index : index + BATCH_SIZE]
                     # filter any null longitude and latitude records
                     if table == wildfire_location_table:
