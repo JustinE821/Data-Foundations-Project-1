@@ -41,8 +41,8 @@ def get_dataframes():
     # Fill simple missing columns
     california_df['longitude'] = None
     california_df['latitude'] = None
-    new_york_df['state'] = 'NY'
-    oregon_df['state'] = 'OR'
+    new_york_df['state_id'] = 'NY'
+    oregon_df['state_id'] = 'OR'
 
     [national_df, new_york_df, oregon_df, california_df] = standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
 

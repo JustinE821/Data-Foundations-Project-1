@@ -9,6 +9,6 @@ from data_processing.standardize_columns import limit_date_range
 
 def combine_dataframes(standardized_dataframe_list):
     combined_df = pd.concat(standardized_dataframe_list, axis=0, join='inner', ignore_index=True)
-    combined_df = combined_df.drop_duplicates(subset=['state', 'report_date', 'fire_name'])
+    combined_df = combined_df.drop_duplicates(subset=['state_id', 'report_date', 'fire_name'])
     combined_df = combined_df.rename_axis('wildfire_id').reset_index()
     return combined_df
