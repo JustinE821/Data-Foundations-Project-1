@@ -6,7 +6,8 @@ causes_table = Table(
     'wildfirecause',
     metadata_obj,
     Column('cause_id', Integer, primary_key=True),
-    Column('cause_text', Text, nullable=False)
+    Column('cause_text', Text, nullable=False),
+    schema='public'
 )
 
 wildfire_table = Table(
@@ -17,16 +18,17 @@ wildfire_table = Table(
     Column('fire_name', Text, nullable=False),
     Column('report_date', Date, nullable=False),
     Column('containment_date', Date),
-    Column('cause_id', Integer, ForeignKey(causes_table.c.cause_id)),
+    Column('cause_id', ForeignKey('wildfirecause.cause_id')),
     schema='public'
 )
 
-locations_table = Table(
+wildfire_location_table = Table(
     'wildfirelocation',
     metadata_obj,
-    Column('wildfire_id', ForeignKey(wildfire_table.c.wildfire_id), primary_key=True),
+    Column('wildfire_id', ForeignKey('wildfire.wildfire_id'), primary_key=True),
     Column('longitude', Numeric(precision=10, scale=7), nullable=False),
-    Column('latitude', Numeric(precision=10, scale=7), nullable=False)
+    Column('latitude', Numeric(precision=10, scale=7), nullable=False),
+    schema='public'
 )
 
 wildfire_size_class_table = Table(
@@ -35,11 +37,14 @@ wildfire_size_class_table = Table(
     Column('size_class', String(1), primary_key=True),
     Column('min_acreage', Numeric(precision=6, scale=2)),
     Column('max_acreage', Numeric(precision=9, scale=2)),
+    schema='public'
 )
 
 wildfire_size_table = Table(
     'wildfiresize',
-    Column('wildfire_id', Integer, ForeignKey(wildfire_table.c.wildfire_id), primary_key=True),
-    Column('size_class', String(1), ForeignKey(wildfire_size_class_table.c.size_class)),
-    Column('acreage', Numeric(precision=9, scale=2))
+    metadata_obj,
+    Column('wildfire_id', ForeignKey('wildfire.wildfire_id'), primary_key=True),
+    Column('size_class', ForeignKey('wildfiresizeclass.size_class')),
+    Column('acreage', Numeric(precision=9, scale=2)),
+    schema='public'
 )
