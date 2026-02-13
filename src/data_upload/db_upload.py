@@ -49,7 +49,7 @@ def upload_table(df, engine, table, table_name):
                          start = time.time()
                          result = conn.execute(stmt, entries)
                          end = time.time()
-                         log_message = f'{table_name} | {len(batch_df)} | {len(result.all())} | {end - start}s'
+                         log_message = f'{table_name} | {len(batch_df)} | {len(result.all())} | {end - start} ellapsed seconds'
                          logger.info(log_message)
                          conn.commit()
      except Exception as e:
