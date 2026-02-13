@@ -41,13 +41,13 @@ def main():
 
     # Combine DataFrames and drop duplicates
     combined_df = combine_dataframes(df_list)
-    #print(combined_df.shape)
+    print(combined_df)
     
     # Break DataFrame into tables
     [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
 
     # Write data to db
-    create_wildfire_entries(wildfire_df)
+    #create_wildfire_entries(wildfire_df)
 
     # Write data to location table
     #create_wildfire_location_entries(wildfire_location_df)
