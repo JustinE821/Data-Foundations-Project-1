@@ -10,17 +10,18 @@ from pathlib import Path
 import time
 
 log_path = Path(__file__).parent.resolve() / '..' / '..' / 'logs' / 'upload.log'
-logging.basicConfig(
-     filename=log_path, 
-     level=logging.DEBUG,
-     format="%(asctime)s | %(levelname)s | %(message)s", 
-)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler(log_path)
+formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 # Row limit will be used to keep a certain amount of records to upload in our demo
 # 619,924 total records to upload as of me writing this
-ROW_LIMIT = 40_000
-BATCH_SIZE = 5_000
+ROW_LIMIT = 100
+BATCH_SIZE = 50
 START_INDEX = 0
 
 def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
@@ -57,3 +58,6 @@ def upload_table(df, engine, table, table_name):
           print(e)
      finally:
           print("Query complete")
+
+def upload_logs(engine, log_table):
+     pass
