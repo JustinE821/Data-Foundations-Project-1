@@ -66,10 +66,10 @@ def test_standardize_column_names_success():
     assert result[0].equals(expected_nat_df) and result[1].equals(expected_ny_df) and result[2].equals(expected_or_df) and result[3].equals(expected_cali_df)
 
 def test_combine_dataframes_success():
-    data1 = {'state': ['NC', 'OR'], 'report_date': [datetime.date(2010, 1, 1), datetime.date(2010, 1, 1)], 'fire_name': ['test fire', 'another fire']}
+    data1 = {'state_id': ['NC', 'OR'], 'report_date': [datetime.date(2010, 1, 1), datetime.date(2010, 1, 1)], 'fire_name': ['test fire', 'another fire']}
     df1 = pd.DataFrame(data=data1)
 
-    data2 = {'state': ['NC', 'OR', 'NY'], 'report_date': [datetime.date(2010, 1, 1), datetime.date(2010, 1, 1), datetime.date(2012, 5, 5)], 'fire_name': ['test fire', 'another fire', 'One more fire']}
+    data2 = {'state_id': ['NC', 'OR', 'NY'], 'report_date': [datetime.date(2010, 1, 1), datetime.date(2010, 1, 1), datetime.date(2012, 5, 5)], 'fire_name': ['test fire', 'another fire', 'One more fire']}
     df2 = pd.DataFrame(data=data2)
 
 
@@ -80,10 +80,10 @@ def test_combine_dataframes_success():
 
 
 def test_split_dataframes_success():
-    data = {'wildfire_id': [1], 'fire_name': ['test'], 'report_date': [datetime.date(2010, 1, 1)], 'cause': [1], 'containment_date': [datetime.date(2010, 1, 1)], 'acreage': [4], 'size_class': ['A'], 'latitude': [35.35534], 'longitude': [35.354], 'state': ['NC']}
+    data = {'wildfire_id': [1], 'fire_name': ['test'], 'report_date': [datetime.date(2010, 1, 1)], 'cause': [1], 'containment_date': [datetime.date(2010, 1, 1)], 'acreage': [4], 'size_class': ['A'], 'latitude': [35.35534], 'longitude': [35.354], 'state_id': ['NC']}
     df = pd.DataFrame(data=data)
 
-    expected_df1 = pd.DataFrame(data= {'wildfire_id': [1], 'state': ['NC'], 'fire_name': ['test'], 'cause_id': [1], 'containment_date': [datetime.date(2010, 1, 1)], 'report_date': [datetime.date(2010, 1, 1)]})
+    expected_df1 = pd.DataFrame(data= {'wildfire_id': [1], 'state_id': ['NC'], 'fire_name': ['test'], 'cause_id': [1], 'containment_date': [datetime.date(2010, 1, 1)], 'report_date': [datetime.date(2010, 1, 1)]})
     expected_df2 = pd.DataFrame(data= {'wildfire_id': [1], 'size_class': ['A'], 'acreage': [4]})
     expected_df3 = pd.DataFrame(data= {'wildfire_id': [1], 'longitude': [35.354], 'latitude': [35.35534]})
     result = split_dataframes(df)
