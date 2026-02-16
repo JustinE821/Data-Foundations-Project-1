@@ -60,6 +60,3 @@ def upload_table(df, engine, table, table_name):
           print(e)
      finally:
           print("Query complete")
-
-def upload_logs(engine, log_table):
-     pass
