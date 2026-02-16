@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, String, Integer, Text, Date, MetaData, ForeignKey, Numeric
+from sqlalchemy import Table, Column, String, Integer, Text, Date, MetaData, ForeignKey, Numeric, DateTime
 
 metadata_obj = MetaData()
 
@@ -46,5 +46,20 @@ wildfire_size_table = Table(
     Column('wildfire_id', ForeignKey('wildfire.wildfire_id'), primary_key=True),
     Column('size_class', ForeignKey('wildfiresizeclass.size_class')),
     Column('acreage', Numeric(precision=9, scale=2)),
+    schema='public'
+)
+
+log_table = Table(
+    'uploadlogs',
+    metadata_obj,
+    Column('log_id', Integer, primary_key=True),
+    Column('timestamp', DateTime),
+    Column('level', String(15)),
+    Column('name_of_table', Text),
+    Column('error_message', Text),
+    Column('num_of_rows_affected', Integer),
+    Column('num_of_rows_attempted', Integer),
+    Column('starting_index', Integer),
+    Column('time_elapsed', Numeric(precision=8, scale=4)),
     schema='public'
 )
