@@ -14,13 +14,13 @@ OREGON_PATH = CSV_FILES_DIR_RELATIVE_PATH / 'ODF_Fire_Occurrence_Data_2000-2022.
 CALIFORNIA_PATH = CSV_FILES_DIR_RELATIVE_PATH / 'California_Historic_Fire_Perimeters_-6236829869961296710.csv'
 
 # Standard column names that we will convert DataFrames into
-STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
+STANDARD_COLUMN_NAMES = ['longitude', 'latitude', 'state_id', 'fire_name', 'report_date', 'containment_date', 'cause', 'acreage', 'size_class']
 
 # Mappings for renaming our columns into a standard format
-NATIONAL_TO_STANDARD_COLUMN_MAPPING = {'LONGITUDE': 'longitude', 'LATITUDE': 'latitude', 'STATE': 'state', 'FIRE_NAME': 'fire_name', 'DISCOVERY_DATE': 'report_date', 'CONT_DATE': 'containment_date', 'NWCG_GENERAL_CAUSE': 'cause', 'FIRE_SIZE': 'acreage', 'FIRE_SIZE_CLASS': 'size_class'}
+NATIONAL_TO_STANDARD_COLUMN_MAPPING = {'LONGITUDE': 'longitude', 'LATITUDE': 'latitude', 'STATE': 'state_id', 'FIRE_NAME': 'fire_name', 'DISCOVERY_DATE': 'report_date', 'CONT_DATE': 'containment_date', 'NWCG_GENERAL_CAUSE': 'cause', 'FIRE_SIZE': 'acreage', 'FIRE_SIZE_CLASS': 'size_class'}
 NEW_YORK_TO_STANDARD_COLUMN_MAPPING = {'Longitude': 'longitude', 'Latitude': 'latitude', 'Incident Name': 'fire_name', 'Initial Report Date': 'report_date', 'Fire Out Date': 'containment_date', 'Cause': 'cause', 'Acreage': 'acreage'}
 OREGON_TO_STANDARD_COLUMN_MAPPING = {'Long_DD': 'longitude', 'Lat_DD': 'latitude', 'FireName': 'fire_name', 'ReportDateTime': 'report_date', 'Control_DateTime': 'containment_date', 'GeneralCause': 'cause', 'EstTotalAcres': 'acreage', 'Size_class': 'size_class'}
-CALIFORNIA_TO_STANDARD_COLUMN_MAPPING = {'State': 'state', 'Fire Name': 'fire_name', 'Alarm Date': 'report_date', 'Containment Date': 'containment_date', 'Cause': 'cause', 'GIS Calculated Acres': 'acreage'}
+CALIFORNIA_TO_STANDARD_COLUMN_MAPPING = {'State': 'state_id', 'Fire Name': 'fire_name', 'Alarm Date': 'report_date', 'Containment Date': 'containment_date', 'Cause': 'cause', 'GIS Calculated Acres': 'acreage'}
 
 # Column names computed based on the mappings so that you only have to set the column names once
 NATIONAL_COLS = NATIONAL_TO_STANDARD_COLUMN_MAPPING.keys()
@@ -89,7 +89,7 @@ cause_dict = {
 
 
 # Names of columns in our database
-WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state', 'fire_name', 'cause_id', 'containment_date', 'report_date']
+WILDFIRE_COLUMN_NAMES = ['wildfire_id', 'state_id', 'fire_name', 'cause_id', 'containment_date', 'report_date']
 WILDFIRE_SIZE_COLUMN_NAMES = ['wildfire_id', 'size_class', 'acreage']
 # WILDFIRE_SIZE_CLASS_COLUMN_NAMES = ['size_class', 'min_acreage', 'max_acreage']
 WILDFIRE_LOCATION_COLUMN_NAMES = ['wildfire_id', 'longitude', 'latitude']
