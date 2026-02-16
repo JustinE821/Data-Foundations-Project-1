@@ -18,6 +18,13 @@ def test_cause_converter_success():
 
     assert result == 1
 
+def test_cause_converter_unexpected_input():
+    cause = 'aldskfadj'
+
+    result = cause_converter(cause)
+
+    assert result == 11
+
 def test_create_size_class_success():
     acreage_col_name = 'Acreage'
     data = {acreage_col_name: [4, 4000]}
