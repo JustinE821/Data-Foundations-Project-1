@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 
 # Row limit will be used to keep a certain amount of records to upload in our demo
 # 619,924 total records to upload as of me writing this
-ROW_LIMIT = 40_000
+ROW_LIMIT = 80_000
 BATCH_SIZE = 5_000
-START_INDEX = 0
+START_INDEX = 40_000
 
 def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
      

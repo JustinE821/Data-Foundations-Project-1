@@ -36,3 +36,17 @@ CREATE TABLE WildfireSize (
 	acreage DECIMAL(9,2),
 	PRIMARY KEY(wildfire_id)
 );
+
+CREATE TABLE uploadlogs (
+    log_id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP,
+    level VARCHAR(15),
+    name_of_table TEXT,
+	num_of_rows_affected INT,
+	error_message TEXT,
+	time_elapsed DECIMAL(8, 4),
+	starting_index INT,
+	num_of_rows_attempted INT
+
+
+);
