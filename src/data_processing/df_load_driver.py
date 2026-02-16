@@ -37,19 +37,20 @@ def get_dataframes():
     convert_datetime_to_date(national_df, national_date_columns)
     convert_datetime_to_date(oregon_df, oregon_date_columns)
     convert_datetime_to_date(california_df, california_date_columns)
+    convert_datetime_to_date(new_york_df, new_york_date_columns)
 
     # Fill simple missing columns
     california_df['longitude'] = None
     california_df['latitude'] = None
-    new_york_df['state'] = 'NY'
-    oregon_df['state'] = 'OR'
+    new_york_df['state_id'] = 'NY'
+    oregon_df['state_id'] = 'OR'
 
     [national_df, new_york_df, oregon_df, california_df] = standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
 
     national_df = limit_date_range(national_df)
-    # new_york_df = limit_date_range(new_york_df)
-    # oregon_df = limit_date_range(oregon_df)
-    # california_df = limit_date_range(california_df)
+    new_york_df = limit_date_range(new_york_df)
+    oregon_df = limit_date_range(oregon_df)
+    california_df = limit_date_range(california_df)
     
 
     return [national_df, new_york_df, oregon_df, california_df]
