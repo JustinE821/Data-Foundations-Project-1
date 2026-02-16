@@ -21,19 +21,19 @@ formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-def log_null_key(df):
+def log_null_key(df, logger):
     null_key_mask = df[KEY].isna().any(axis=1)
     logger.info(f"\n{df[null_key_mask].to_string()}")
         
-def log_duplicate_key(df):
+def log_duplicate_key(df, logger):
     duplicates = df[df.duplicated(subset=KEY)]
     logger.info(f"\n{duplicates.to_string()}")
 
 def combine_dataframes(standardized_dataframe_list):
     combined_df = pd.concat(standardized_dataframe_list, axis=0, join='inner', ignore_index=True)
-    log_null_key(combined_df)
+    log_null_key(combined_df, logger)
     combined_df = combined_df.dropna(subset=KEY)
-    log_duplicate_key(combined_df)
+    log_duplicate_key(combined_df, logger)
     combined_df = combined_df.drop_duplicates(subset=KEY, ignore_index=True)
     combined_df = combined_df.replace({np.nan: None})
     combined_df = combined_df.rename_axis('wildfire_id').reset_index()
