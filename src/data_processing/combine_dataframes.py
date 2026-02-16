@@ -13,12 +13,13 @@ import logging
 KEY = ['state_id', 'report_date', 'fire_name']
 
 log_path = Path(__file__).parent.resolve() / '..' / '..' / 'logs' / 'dropped.log'
-logging.basicConfig(
-     filename=log_path, 
-     level=logging.DEBUG,
-     format="%(asctime)s | %(levelname)s | %(message)s", 
-)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler(log_path)
+formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 def log_null_key(df):
     null_key_mask = df[KEY].isna().any(axis=1)
