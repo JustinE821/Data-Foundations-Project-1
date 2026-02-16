@@ -17,8 +17,9 @@ formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-ROW_LIMIT = 100
-BATCH_SIZE = 50
+# There are 588,733 records in wildfire_df
+ROW_LIMIT = 590_000
+BATCH_SIZE = 5_000
 START_INDEX = 0
 
 def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
