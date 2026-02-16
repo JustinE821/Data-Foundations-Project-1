@@ -163,6 +163,28 @@ def test_log_null_key_no_dropped_rows():
 
     verify(logger).info(expected_log)
 
+def test_log_duplicate_key_no_duplicates():
+    logger = mock()
+    arg = captor()
+    test_data = {'fire_name': ['fire1', 'fire2', 'fire3'], 'state_id': ['VA', 'VA', 'NY'], 'report_date': [datetime.date(2010, 2, 1), datetime.date(2010, 1, 1), datetime.date(2012, 5, 5)]}
+    test_df = pd.DataFrame(data=test_data, index=[0, 1, 2])
+
+    log_duplicate_key(test_df, logger)
+
+    verify(logger).info(arg)
+    assert 'fire1' not in arg.value and 'fire2' not in arg.value and 'fire3' not in arg.value
+
+def test_log_duplicate_key_with_duplicates():
+    logger = mock()
+    arg = captor()
+    test_data = { 'fire_name': ['fire1', 'fire1', 'fire3'], 'state_id': ['VA', 'VA', 'NY'], 'report_date': [datetime.date(2010, 2, 1), datetime.date(2010, 2, 1), datetime.date(2012, 5, 5)]}
+    test_df = pd.DataFrame(data=test_data, index=[0, 1, 2])
+
+    log_duplicate_key(test_df, logger)
+
+    verify(logger).info(arg)
+    assert 'fire1' in arg.value and 'fire3' not in arg.value
+
 def test_split_dataframes_success():
     data = {'wildfire_id': [1], 'fire_name': ['test'], 'report_date': [datetime.date(2010, 1, 1)], 'cause': [1], 'containment_date': [datetime.date(2010, 1, 1)], 'acreage': [4], 'size_class': ['A'], 'latitude': [35.35534], 'longitude': [35.354], 'state_id': ['NC']}
     df = pd.DataFrame(data=data)
