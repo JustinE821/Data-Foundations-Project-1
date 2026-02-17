@@ -5,17 +5,34 @@
     <meta name="viewport" content="width='device-width', initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/webpage.css">
+    <!--
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
+-->
 </head>
 <body>
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+  <div class="flex-container">
+    
+
+    
+    <div class="flex-item">
+      <h2>The subplot below shows how the common fire cause changes depending on the fire sizes we focus on</h2>
+      <img id="acres-subplot" src="../images/top_causes_subplot.png">
+    </div>
+    <div class="flex-item">
+      <h2>The Pie chart below shows the most common cause of fires when looking at all states</h2>
+      <img src="../images/top_causes_from_every_state.png">
+    </div>  
+    <div class="flex-item">
+      <h2>Bar chart below shows the total number of fires that occured in each of the twelve months through the 2010s</h2>
+      <img src="../images/fire_count_by_month.png">
+    </div>
+    
+    <div class="flex-item">
+      <h2>Here is the wildfire heatmap which shows where fires occured in the US throughout the 2010s</h2>
+      <iframe id="heat-map" src="fire_heat_map.html"></iframe>
+    </div>
   </div>
-</div>
+
 </body>
 </html>
