@@ -1,12 +1,34 @@
 '''This file is used to query data from the database'''
 import logging
-from sqlalchemy import text
+from sqlalchemy import text, select
 from data_upload.db_connection import init_conn
 from data_upload.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
 from pathlib import Path
 import time
 
 
+def fetch_fire_coordinates():
+
+    engine = init_conn()
+    
+    try:
+
+        stmt = select(wildfire_location_table)
+        sql = text('''SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class
+                        FROM wildfirelocation wl
+                        INNER JOIN wildfiresize ws ON wl.wildfire_id=ws.wildfire_id;'''
+                   )
+        locations = None
+        with engine.connect() as conn:
+            #locations = conn.execute(stmt).all()
+            locations = conn.execute(sql).all()
+        return locations
+
+        
+        
+    except Exception as e:
+        print(f"Error: {e}")
+    
 
 
 
