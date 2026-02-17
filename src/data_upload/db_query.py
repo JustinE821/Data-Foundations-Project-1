@@ -7,6 +7,27 @@ from pathlib import Path
 import time
 
 
+def fetch_fire_count_by_month():
+
+    engine = init_conn()
+
+    try:
+        sql = text('''SELECT DATE_PART('month', report_date) AS fires_by_month, COUNT(wildfire_id)
+                        FROM wildfire
+                        GROUP BY DATE_PART('month', report_date)
+                        ORDER BY fires_by_month ASC;'''
+                   )
+
+        res = None
+        with engine.connect() as conn:
+            res = conn.execute(sql).fetchall()
+
+        return res
+
+    except Exception as e:
+        print(f"ERROR: {e}")
+
+
 def fetch_fire_coordinates():
 
     engine = init_conn()
