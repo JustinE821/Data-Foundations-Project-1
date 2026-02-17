@@ -5,7 +5,22 @@ import folium
 from folium.plugins import HeatMap
 from datetime import datetime, timedelta
 
+def graph_fire_count_by_month(rows):
+    month_list = list()
+    fire_count_list = list()
+    month_mappings = {1.0: "Jan", 2.0: "Feb", 3.0: "Mar", 4.0: "Apr", 5.0: "May", 6.0: "Jun", 7.0: "Jul", 8.0: "Aug", 9.0: "Sep", 10.0: "Oct", 11.0: "Nov", 12.0: "Dec" }
+    
+    for index in range(len(rows)):
+        month_list.append(month_mappings[rows[index][0]])
+        fire_count_list.append(rows[index][1])
 
+    plt.bar(month_list, fire_count_list, zorder=3)
+    plt.title("Number of fires by month in the 2010s")
+    plt.ylabel("Number of fires")
+    plt.xlabel("Months")
+    plt.grid(True)
+    plt.grid(zorder=0)
+    plt.show()
 
 def plot_usa_heatmap(rows):
     latitude_list = list()
