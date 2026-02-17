@@ -2,9 +2,57 @@ import pytest
 from mockito import mock, verify, captor, when, args
 from data_upload.db_connection import SQLHandler
 import logging
+from data_upload.db_upload import upload_table
+from data_upload.table_models import wildfire_table, wildfire_location_table
+import datetime
+import pandas as pd
 
 @pytest.fixture
-def sql_handler():
+def engine_connection():
+    conn = mock()
+    when(conn).__enter__().thenReturn(conn)
+    when(conn).__exit__().thenReturn(None)
+
+    engine = mock()
+    when(engine).connect().thenReturn(conn)
+    return [engine, conn]
+
+def test_upload_table(engine_connection):
+    arg = captor()
+    arg2 = captor()
+    [engine, conn] = engine_connection
+    test_data = {
+        'wildfire_id': [1, 2, 3], 
+        'state_id': ['VA', 'VA', 'NC'], 
+        'fire_name': ['Fire1', 'Fire2', 'Fire3'], 
+        'report_date': [datetime.date(2010, 4, 29), datetime.date(2011, 6, 28), datetime.date(2013, 4, 5)], 
+        'containment_date': [datetime.date(2010, 4, 29), datetime.date(2011, 6, 29), datetime.date(2013, 4, 5)],
+        'cause_id': [1, 1, 11]
+    }
+    test_df = pd.DataFrame(data=test_data)
+
+    upload_table(test_df, engine, wildfire_table, "wildfire", 0, 3, 1)
+
+    verify(conn, 3).execute(arg, arg2)
+
+def test_upload_table_wildfire_location_drops_null(engine_connection):
+    arg = captor()
+    arg2 = captor()
+    [engine, conn] = engine_connection
+    test_data = {
+        'wildfire_id': [1, 2, 3], 
+        'longitude': [1, None, 11],
+        'latitude': [1, 2, 1]
+    }
+    test_df = pd.DataFrame(data=test_data)
+
+    upload_table(test_df, engine, wildfire_location_table, "wildfirelocation", 0, 3, 1)
+
+    verify(conn, 2).execute(arg, arg2)
+
+@pytest.fixture
+def sql_handler(engine_connection):
+    [conn, engine] = engine_connection
     arg = captor()
     arg2 = captor()
     
@@ -14,10 +62,10 @@ def sql_handler():
 
     engine = mock()
     when(engine).connect().thenReturn(conn)
-    
+
     return [SQLHandler(engine), conn, arg, arg2]
 
-def test_SQLHandler_emit_error(sql_handler):
+def test_SQLHandler_emit_error_with_table_name(sql_handler):
     [handler, conn, arg, arg2] = sql_handler
     
     record = logging.LogRecord(
