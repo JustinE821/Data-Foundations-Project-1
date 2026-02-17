@@ -2,9 +2,9 @@ import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.dialects.postgresql import insert
 import json
-from database_operations.db_constants import JSON_FILE_RELATIVE_PATH
+from data_upload.db_constants import JSON_FILE_RELATIVE_PATH
 import logging
-from database_operations.table_models import log_table
+from data_upload.table_models import log_table
 from datetime import datetime
 
 class SQLHandler(logging.Handler):

@@ -1,9 +1,9 @@
 import pytest
 from mockito import mock, verify, captor, when, args
-from database_operations.db_connection import SQLHandler
+from data_upload.db_connection import SQLHandler
 import logging
-from database_operations.db_upload import upload_table
-from database_operations.table_models import wildfire_table, wildfire_location_table
+from data_upload.db_upload import upload_table
+from data_upload.table_models import wildfire_table, wildfire_location_table
 import datetime
 import pandas as pd
 

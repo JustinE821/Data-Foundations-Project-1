@@ -4,8 +4,8 @@ This file will contain the functions used to add data to the database as well as
 '''
 import logging
 from sqlalchemy.dialects.postgresql import insert
-from database_operations.db_connection import init_conn, SQLHandler
-from database_operations.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
+from data_upload.db_connection import init_conn, SQLHandler
+from data_upload.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
 from pathlib import Path
 import time
 
