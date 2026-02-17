@@ -57,6 +57,22 @@ def test_compute_date_cols_sucess():
 
     assert result == expected_result
 
+def test_convert_datetime_to_date_two_datetime_columns():
+    test_data = {'first_date': [datetime.datetime(2010, 2, 2, 11, 30, 00), datetime.datetime(2011, 6, 12, 1, 30, 00), datetime.datetime(2010, 11, 11, 17, 15, 20), datetime.datetime(2009, 5, 3, 11, 40, 00)], 'second_date': [datetime.datetime(2010, 2, 2, 11, 30, 00), datetime.datetime(2011, 6, 17, 4, 30, 3), datetime.datetime(2011, 11, 11, 11, 11, 20), datetime.datetime(2019, 5, 1, 11, 45, 00)], 'other': [1, 2, 3, 4]}
+    test_df = pd.DataFrame(data=test_data, index=[0,1,2,3])
+    date_columns = ['first_date', 'second_date']
+    convert_datetime_to_date(test_df, date_columns)
+    assert isinstance(test_df['first_date'].iloc[0], datetime.date)
+    assert isinstance(test_df['second_date'].iloc[0], datetime.date)
+
+def test_convert_datetime_to_date_one_datetime_column_one_date_column():
+    test_data = {'first_date': [datetime.date(2010, 2, 2), datetime.date(2011, 6, 12), datetime.date(2010, 11, 11), datetime.date(2009, 5, 3)], 'second_date': [datetime.datetime(2010, 2, 2, 11, 30, 00), datetime.datetime(2011, 6, 17, 4, 30, 3), datetime.datetime(2011, 11, 11, 11, 11, 20), datetime.datetime(2019, 5, 1, 11, 45, 00)], 'other': [1, 2, 3, 4]}
+    test_df = pd.DataFrame(data=test_data, index=[0,1,2,3])
+    date_columns = ['first_date', 'second_date']
+    convert_datetime_to_date(test_df, date_columns)
+    assert isinstance(test_df['first_date'].iloc[0], datetime.date)
+    assert isinstance(test_df['second_date'].iloc[0], datetime.date)
+
 def test_standardize_column_names_success():
     national_df = pd.DataFrame(columns=NATIONAL_COLS)
     oregon_df = pd.DataFrame(columns=OREGON_COLS)
