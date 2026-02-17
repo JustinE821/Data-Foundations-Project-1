@@ -1,8 +1,8 @@
 '''This file is used to query data from the database'''
 import logging
 from sqlalchemy import text, select
-from data_upload.db_connection import init_conn
-from data_upload.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
+from database_operations.db_connection import init_conn
+from database_operations.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
 from pathlib import Path
 import time
 

@@ -9,8 +9,8 @@ each step in our data processing pipeline.
 from data_processing.df_load_driver import get_dataframes
 from data_processing.combine_dataframes import combine_dataframes
 from data_processing.split_dataframes import split_dataframes
-from data_upload.db_upload import upload_tables
-from data_upload.db_query import fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_top_causes, fetch_fire_coordinates, fetch_fire_count_by_month
+from database_operations.db_upload import upload_tables
+from database_operations.db_query import fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_top_causes, fetch_fire_coordinates, fetch_fire_count_by_month
 from data_exploration.data_plotting import graph_top_causes, graph_state_top_causes, plot_usa_heatmap, graph_fire_count_by_month
 
 def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):

@@ -1,11 +1,11 @@
 '''
-Docstring for data_upload.df_upload
+Docstring for database_operations.df_upload
 This file will contain the functions used to add data to the database as well as any other queries
 '''
 import logging
 from sqlalchemy.dialects.postgresql import insert
-from data_upload.db_connection import init_conn, SQLHandler
-from data_upload.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
+from database_operations.db_connection import init_conn, SQLHandler
+from database_operations.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
 from pathlib import Path
 import time
 
