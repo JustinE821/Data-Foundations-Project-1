@@ -28,23 +28,23 @@ def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
           engine = init_conn()
           sql_handler = SQLHandler(engine)
           logger.addHandler(sql_handler)
-          upload_table(wildfire_df, engine, wildfire_table, "Wildfire")
-          upload_table(wildfire_size_df, engine, wildfire_size_table, "WildfireSize")
-          upload_table(wildfire_location_df, engine, wildfire_location_table, "WildfireLocation")
+          upload_table(wildfire_df, engine, wildfire_table, "Wildfire", START_INDEX, ROW_LIMIT, BATCH_SIZE)
+          upload_table(wildfire_size_df, engine, wildfire_size_table, "WildfireSize", START_INDEX, ROW_LIMIT, BATCH_SIZE)
+          upload_table(wildfire_location_df, engine, wildfire_location_table, "WildfireLocation", START_INDEX, ROW_LIMIT, BATCH_SIZE)
      except Exception as e:
           logger.error(f"Error: {str(e)}")
           print(e)
 
-def upload_table(df, engine, table, table_name):
+def upload_table(df, engine, table, table_name, start_index, row_limit, batch_size):
 
      stmt = insert(table).on_conflict_do_nothing(index_elements=['wildfire_id']).returning(table)
      try:
           with engine.connect() as conn:
-               for index in range(START_INDEX, ROW_LIMIT, BATCH_SIZE):
+               for index in range(start_index, row_limit, batch_size):
                     try:
-                         batch_df = df.iloc[index : index + BATCH_SIZE]
+                         batch_df = df.iloc[index : index + batch_size]
                          # filter any null longitude and latitude records
-                         if table == wildfire_location_table:
+                         if table_name == 'wildfirelocation':
                               batch_df = batch_df.dropna(subset=['longitude', 'latitude'])
                          entries = batch_df.to_dict(orient='records')
                          if entries:
