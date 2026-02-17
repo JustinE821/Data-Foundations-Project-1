@@ -20,6 +20,8 @@ def graph_fire_count_by_month(rows):
     plt.xlabel("Months")
     plt.grid(True)
     plt.grid(zorder=0)
+
+    plt.savefig("./src/static/images/fire_count_by_month.png")
     plt.show()
 
 def plot_usa_heatmap(rows):
@@ -54,6 +56,8 @@ def graph_state_top_causes(rows):
 
     plt.pie(count_list, labels=label_list)
     plt.title("Top causes from every state")
+
+    plt.savefig("./src/static/images/top_causes_from_every_state.png")
     plt.show()
 
 # This graph technically works, but probably will not be used
@@ -72,8 +76,12 @@ def graph_states_by_count(rows):
 # Makes a subplot showing 4 different bar graphs, which show the top 5 causes of fires with a minimum fire size set
 def graph_top_causes(cause_rows, total_fires):
     min_acreage = [0, 5, 100, 1000]
+
+    plt.figure(figsize=(18, 10))
     for current_subplot in range(4):
+
         plt.subplot(2, 2, current_subplot + 1)
+        plt.rcParams['figure.constrained_layout.use'] = True
         cause_list = list()
         count_list = list()
 
@@ -84,13 +92,14 @@ def graph_top_causes(cause_rows, total_fires):
         for index in range(len(cause_rows)):
             cause_list.append(subplot_cause_rows[index][0])
             count_list.append(subplot_cause_rows[index][1])
-
-        plt.bar(cause_list, count_list)
+        plt.bar(cause_list, count_list, zorder=3)
         plt.grid(True)
         plt.title(f"Number of fires over {min_acreage[current_subplot]} acres by type")
         plt.xlabel("Fire types")
         plt.ylabel("Number of fires")
 
+    plt.autoscale(True)
+    plt.savefig("./src/static/images/top_causes_subplot.png")
     plt.show()
 
 
