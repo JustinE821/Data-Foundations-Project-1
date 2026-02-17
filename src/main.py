@@ -40,12 +40,12 @@ def show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df):
 def show_graphs():
 
     #One of the key visualization calls
-    graph_state_top_causes(fetch_top_causes())
+    # graph_state_top_causes(fetch_top_causes())
 
-    top_causes = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
-    total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
-    if top_causes != None:
-        graph_top_causes(top_causes, total_fires)
+    # top_causes = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
+    # total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
+    # if top_causes != None:
+    #     graph_top_causes(top_causes, total_fires)
 
     # Used to gather data from the db to then be used to generate a heat map
     fire_location_list = fetch_fire_coordinates()
@@ -55,9 +55,9 @@ def show_graphs():
 
     #This set of functions will give us a graph which we will be able to derive a correlation from
     #The warmer months which contain dead vegetation are more fire prone months
-    fires_by_month = fetch_fire_count_by_month()
-    if fires_by_month != None:
-        graph_fire_count_by_month(fires_by_month)
+    # fires_by_month = fetch_fire_count_by_month()
+    # if fires_by_month != None:
+    #     graph_fire_count_by_month(fires_by_month)
 
     
 
