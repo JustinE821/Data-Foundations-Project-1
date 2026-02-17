@@ -10,8 +10,8 @@ from data_processing.df_load_driver import get_dataframes
 from data_processing.combine_dataframes import combine_dataframes
 from data_processing.split_dataframes import split_dataframes
 from data_upload.db_upload import upload_tables
-from data_upload.db_query import fetch_wildfires_count_by_state, fetch_wildfires_cause_by_state, fetch_top_fire_cause_by_state, fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_fire_count_by_state, fetch_top_causes
-from data_exploration.data_plotting import graph_states_by_count, graph_top_fire_cause_by_state, graph_top_causes, graph_state_top_causes
+from data_upload.db_query import fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_top_causes, fetch_fire_coordinates
+from data_exploration.data_plotting import graph_states_by_count, graph_top_fire_cause_by_state, graph_top_causes, graph_state_top_causes, plot_usa_heatmap
 
 def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):
     print('-----------------------')
@@ -54,13 +54,21 @@ def show_graphs():
     
 
 
-    
-    graph_state_top_causes(fetch_top_causes())
+    #One of the key visualization calls
+    # graph_state_top_causes(fetch_top_causes())
 
-    top_causes = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
-    total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
-    if top_causes != None:
-        graph_top_causes(top_causes, total_fires)
+    # top_causes = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
+    # total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
+    # if top_causes != None:
+    #     graph_top_causes(top_causes, total_fires)
+
+
+    fire_location_list = fetch_fire_coordinates()
+
+    
+
+    if fire_location_list != None:
+        plot_usa_heatmap(fire_location_list)
     
     # total_fires_by_state = fetch_fire_count_by_state()
     # top_fire_causes_by_state = fetch_top_fire_cause_by_state()
