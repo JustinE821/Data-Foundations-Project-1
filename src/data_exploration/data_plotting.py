@@ -27,8 +27,8 @@ def plot_usa_heatmap(rows):
     longitude_list = list()
     size_list = list()
     #This dict stores new mappings for size class, which will allow size of fire to be accounted for
-    size_weight = {"A": .1, "B": .2, "C": .3, "D": .4, "E": .5, "F": .8, "G": 1}
-
+    # size_weight = {"A": .001, "B": .01, "C": .3, "D": .4, "E": .5, "F": .8, "G": 1}
+    size_weight = {"A": .125, "B": 5.2, "C": 55, "D": 200, "E": 650, "F": 3000, "G": 500000}
     for index in range(len(rows)):
         longitude_list.append(rows[index][0])
         latitude_list.append(rows[index][1])
@@ -36,11 +36,11 @@ def plot_usa_heatmap(rows):
 
     us_map = folium.Map(location=[39.0119, -98.4842], zoom_start = 5)
 
-    heatmap = HeatMap(list(zip(latitude_list, longitude_list, size_list)), min_opacity=0, max_opacity=1.0, radius=30, blur=30, max_zoom=1)
+    heatmap = HeatMap(list(zip(latitude_list, longitude_list, size_list)), min_opacity=0, max_opacity=1.0, radius=30, blur=20, max_zoom=1)
 
     heatmap.add_to(us_map)
 
-    us_map.save("./src/static/html/testing_map.html")
+    us_map.save("./src/static/html/fire_heat_map.html")
 
 
 # This function displays a pie chart which shows what fire types are most prevalent. 
