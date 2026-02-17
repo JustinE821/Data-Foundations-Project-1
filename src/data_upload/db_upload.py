@@ -1,5 +1,5 @@
 '''
-Docstring for data_upload.df_upload
+Docstring for database_operations.df_upload
 This file will contain the functions used to add data to the database as well as any other queries
 '''
 import logging
