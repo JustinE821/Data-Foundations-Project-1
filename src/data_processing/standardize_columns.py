@@ -11,8 +11,9 @@ def compute_date_cols(column_list):
     return [column for column in column_list if "date" in column.lower()]
 
 def convert_datetime_to_date(df, date_columns):
-    df[date_columns[0]] = df[date_columns[0]].dt.date
-    df[date_columns[1]] = df[date_columns[1]].dt.date
+    for date_col in date_columns:
+        if isinstance(df[date_col].iloc[0], datetime.datetime):
+            df[date_col] = df[date_col].dt.date
 
 
 def limit_date_range(df):
