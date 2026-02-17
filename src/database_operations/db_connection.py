@@ -23,9 +23,15 @@ class SQLHandler(logging.Handler):
 
     def create_error_log(self, record):
         log = self.create_base_log(record)
-        [table_name, error_message] = record.message.split("|")
-        log["error_message"] = error_message[:256]
-        log["name_of_table"] = table_name
+        message_split = record.message.split("|")
+        if len(message_split) == 2:
+            log["error_message"] = message_split[1][:256]
+            log["name_of_table"] = message_split[0]
+        elif len(message_split) == 1: # An exception in db_upload.upload_tables() does not have access to 
+            # the table name which is provided by error logs in dp_upload.upload_table()
+            log["error_message"] = message_split[0]
+        else:
+            print("This should never happen")
         return log
 
     def create_warning_log(self, record):
