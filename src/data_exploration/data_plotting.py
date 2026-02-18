@@ -124,7 +124,7 @@ def graph_states_with_highest_acreage_sums(rows):
 
     for x, y in rows:
         label_list.append(x)
-        acreage_list.append(int(float(y)/1000000))
+        acreage_list.append(float(y)/1000000)
     
     plt.bar(label_list, acreage_list, zorder=2)
     plt.title('Ten States With the Most Burned Acreage')
