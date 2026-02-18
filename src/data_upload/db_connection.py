@@ -6,6 +6,16 @@ from data_upload.db_constants import JSON_FILE_RELATIVE_PATH
 import logging
 from data_upload.table_models import log_table
 from datetime import datetime
+from pathlib import Path
+
+log_path = Path(__file__).parent.resolve() / '..' / '..' / 'logs' / 'conn.log'
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(log_path)
+formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
 
 class SQLHandler(logging.Handler):
 
@@ -68,6 +78,7 @@ class SQLHandler(logging.Handler):
                 case _:
                     log = self.create_error_log(record)
         except Exception as e:
+            logger.error(f"{str(e)}")
             print("Failed to create log: ", str(e))
         
         try:
@@ -75,6 +86,7 @@ class SQLHandler(logging.Handler):
                 conn.execute(insert(log_table), log)
                 conn.commit()
         except Exception as e:
+            logger.error(f"{str(e)}")
             print("Failed to write log to database: ", e)
  
 
@@ -103,5 +115,6 @@ def init_conn():
 
         #return engine
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"Database error: {e}")
         raise

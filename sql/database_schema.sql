@@ -47,6 +47,4 @@ CREATE TABLE uploadlogs (
 	time_elapsed DECIMAL(8, 4),
 	starting_index INT,
 	num_of_rows_attempted INT
-
-
 );
