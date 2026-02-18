@@ -6,7 +6,7 @@ from folium.plugins import HeatMap
 from datetime import datetime, timedelta
 
 
-
+#Function below generates a bar graph that shows the fire distribution by month
 def graph_fire_count_by_month(rows):
     month_list = list()
     fire_count_list = list()
@@ -26,6 +26,7 @@ def graph_fire_count_by_month(rows):
     plt.savefig("./src/static/images/fire_count_by_month.png")
     plt.show()
 
+#Function below generates a heat map of the United States, showing where fires occured, and how severe they were
 def plot_usa_heatmap(rows):
     latitude_list = list()
     longitude_list = list()
