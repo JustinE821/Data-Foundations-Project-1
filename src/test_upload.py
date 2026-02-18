@@ -159,7 +159,7 @@ def test_SQLHandler_emit_info(sql_handler):
     assert arg2.value['time_elapsed'] == 0.2343
 
 
-def test_fetch_fire_coordinates(engine_connection):
+def test_fetch_fire_coordinates_success(engine_connection):
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -182,7 +182,7 @@ def test_fetch_fire_coordinates(engine_connection):
     assert 'SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class' in str(args[0])  # Check SQL string
     assert mock_result == result
 
-def test_fetch_fire_count_by_month():
+def test_fetch_fire_count_by_month_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -208,7 +208,7 @@ def test_fetch_fire_count_by_month():
     assert mock_result == result
 
 
-def test_fetch_wildfire_content_by_type():
+def test_fetch_wildfire_content_by_type_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -233,7 +233,7 @@ def test_fetch_wildfire_content_by_type():
     assert 'SELECT wc.cause_text, COUNT(w.cause_id)' in str(args[0])  # Check SQL string
     assert mock_result == result
 
-def test_fetch_number_of_fires():
+def test_fetch_number_of_fires_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -259,7 +259,7 @@ def test_fetch_number_of_fires():
     assert mock_result == result
 
 
-def test_fetch_top_causes():
+def test_fetch_top_causes_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
