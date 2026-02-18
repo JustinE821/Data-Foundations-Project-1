@@ -40,12 +40,15 @@ def show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df):
 def show_graphs():
 
     #One of the key visualization calls
-    graph_state_top_causes(fetch_top_causes())
 
-    top_causes = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
+    top_causes_by_state = fetch_top_causes()
+    if top_causes_by_state != None:
+        graph_state_top_causes()
+
+    top_fire_types = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
     total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
-    if top_causes != None:
-        graph_top_causes(top_causes, total_fires)
+    if top_fire_types != None:
+        graph_top_causes(top_fire_types, total_fires)
 
     # Used to gather data from the db to then be used to generate a heat map
     fire_location_list = fetch_fire_coordinates()
@@ -67,12 +70,7 @@ def show_graphs():
 def main():
     # Load data and standardize
     df_list = get_dataframes()
-
-    # show_original_dataframes(*df_list)
     
-    #Show
-    
-
     # Combine DataFrames and drop duplicates
     combined_df = combine_dataframes(df_list)
     #print(combined_df.shape)
@@ -80,6 +78,7 @@ def main():
     # Break DataFrame into tables
     [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
 
+    # show_original_dataframes(*df_list)
 
     show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
@@ -89,7 +88,7 @@ def main():
     #show_original_dataframes(*df_list)
     #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
-    #show_graphs()
+    show_graphs()
 
 if __name__ == "__main__":
     main()

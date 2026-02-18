@@ -1,10 +1,20 @@
 '''This file is used to query data from the database'''
 import logging
-from sqlalchemy import text, select
+from sqlalchemy import text
 from data_upload.db_connection import init_conn
-from data_upload.table_models import wildfire_table, wildfire_size_table, wildfire_location_table
 from pathlib import Path
-import time
+
+
+
+
+
+log_path = Path(__file__).parent.resolve() / '..' / '..' / 'logs' / 'query.log'
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(log_path)
+formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 
@@ -29,6 +39,7 @@ def fetch_fire_count_by_month(engine=None):
         return res
 
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"ERROR: {e}")
 
 # Returns all fire locations, as well as the severity of said fires
@@ -39,20 +50,19 @@ def fetch_fire_coordinates(engine=None):
     
     try:
 
-        stmt = select(wildfire_location_table)
         sql = text('''SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class
                         FROM wildfirelocation wl
                         INNER JOIN wildfiresize ws ON wl.wildfire_id=ws.wildfire_id;'''
                    )
         locations = None
         with engine.connect() as conn:
-            #locations = conn.execute(stmt).all()
             locations = conn.execute(sql).all()
         return locations
 
         
         
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"Error: {e}")
     
 
@@ -81,6 +91,7 @@ def fetch_wildfire_count_by_type(fire_size=5, engine=None):
         with engine.connect() as conn:
             res = conn.execute(sql, {"fire_size": fire_size})
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"Error: {str(e)}")
     else:
         return res.fetchall()
@@ -100,6 +111,7 @@ def fetch_number_of_fires(fire_size, engine=None):
         with engine.connect() as conn:
             res = conn.execute(sql, {"fire_size": fire_size})
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"Error: {str(e)}")
     else:
         return res.fetchall()
@@ -130,6 +142,7 @@ def fetch_top_causes(engine=None):
         with engine.connect() as conn:
             res = conn.execute(sql)
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"Error: {str(e)}")
     else:
         return res.fetchall()
@@ -152,6 +165,7 @@ def fetch_states_with_highest_acreage_sums(engine=None):
             res = conn.execute(sql).fetchall()
         return res
     except Exception as e:
+        logger.error(f"{str(e)}")
         print(f"ERROR: {e}")
 
 

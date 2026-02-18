@@ -3,7 +3,6 @@
 import matplotlib.pyplot as plt
 import folium
 from folium.plugins import HeatMap
-from datetime import datetime, timedelta
 
 
 #Function below generates a bar graph that shows the fire distribution by month
