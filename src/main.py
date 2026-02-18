@@ -43,7 +43,7 @@ def show_graphs():
 
     top_causes_by_state = fetch_top_causes()
     if top_causes_by_state != None:
-        graph_state_top_causes()
+        graph_state_top_causes(top_causes_by_state)
 
     top_fire_types = [fetch_wildfire_count_by_type(0), fetch_wildfire_count_by_type(5), fetch_wildfire_count_by_type(100), fetch_wildfire_count_by_type(1000)]
     total_fires = [fetch_number_of_fires(0), fetch_number_of_fires(5), fetch_number_of_fires(100), fetch_number_of_fires(1000)]
