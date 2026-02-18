@@ -10,9 +10,10 @@ import time
 
 
 
-def fetch_fire_count_by_month():
+def fetch_fire_count_by_month(engine=None):
 
-    engine = init_conn()
+    if engine == None:
+        engine = init_conn()
 
     try:
         sql = text('''SELECT DATE_PART('month', report_date) AS fires_by_month, COUNT(wildfire_id)
@@ -31,9 +32,10 @@ def fetch_fire_count_by_month():
         print(f"ERROR: {e}")
 
 
-def fetch_fire_coordinates():
+def fetch_fire_coordinates(engine=None):
 
-    engine = init_conn()
+    if engine == None:
+        engine = init_conn()
     
     try:
 
@@ -58,36 +60,13 @@ def fetch_fire_coordinates():
 
 
 
-def fetch_top_fire_cause_by_state():
 
-    engine = init_conn()
-    sql = text('''WITH ranked_causes AS (
-                    SELECT 
-                        w.state_id,
-                        wc.cause_text,
-                        COUNT(w.state_id) AS num_of_occurances,
-                        ROW_NUMBER() OVER (PARTITION BY w.state_id ORDER BY COUNT(w.state_id) DESC) AS row_num
-                    FROM wildfire w
-                    INNER JOIN wildfirecause wc ON w.cause_id = wc.cause_id
-                    GROUP BY w.state_id, wc.cause_text
-                    )
-                    SELECT state_id, cause_text, num_of_occurances
-                    FROM ranked_causes
-                    WHERE row_num = 1
-                    ORDER BY state_id;'''
-               )
-    res = None
-    try:
-        with engine.connect() as conn:
-            res = conn.execute(sql)
-    except Exception as e:
-        print(f"Error: {str(e)}")
-    else:
-        return res.fetchall()
     
-def fetch_wildfire_count_by_type(fire_size):
+def fetch_wildfire_count_by_type(fire_size, engine=None):
 
-    engine = init_conn()
+    if engine == None:
+        engine = init_conn()
+
     sql = text('''SELECT wc.cause_text, COUNT(w.cause_id)
                     FROM wildfire w
                     INNER JOIN wildfirecause wc ON w.cause_id = wc.cause_id
@@ -106,8 +85,10 @@ def fetch_wildfire_count_by_type(fire_size):
     else:
         return res.fetchall()
     
-def fetch_number_of_fires(fire_size):
-    engine = init_conn()
+def fetch_number_of_fires(fire_size, engine=None):
+    if engine == None:
+        engine = init_conn()
+
     sql = text('''SELECT COUNT(w.wildfire_id) 
                     FROM wildfire w
                     INNER JOIN wildfiresize ws ON w.wildfire_id = ws.wildfire_id
@@ -123,8 +104,10 @@ def fetch_number_of_fires(fire_size):
         return res.fetchall()
     
 
-def fetch_top_causes():
-    engine = init_conn()
+def fetch_top_causes(engine=None):
+    if engine == None:
+        engine = init_conn()
+
     sql = text('''WITH ranked_causes AS (
                     SELECT 
                         w.state_id,
@@ -151,6 +134,37 @@ def fetch_top_causes():
         return res.fetchall()
 
 
+
+
+
+# def fetch_top_fire_cause_by_state(engine=None):
+
+#     if engine == None:
+#         engine = init_conn()
+
+#     sql = text('''WITH ranked_causes AS (
+#                     SELECT 
+#                         w.state_id,
+#                         wc.cause_text,
+#                         COUNT(w.state_id) AS num_of_occurances,
+#                         ROW_NUMBER() OVER (PARTITION BY w.state_id ORDER BY COUNT(w.state_id) DESC) AS row_num
+#                     FROM wildfire w
+#                     INNER JOIN wildfirecause wc ON w.cause_id = wc.cause_id
+#                     GROUP BY w.state_id, wc.cause_text
+#                     )
+#                     SELECT state_id, cause_text, num_of_occurances
+#                     FROM ranked_causes
+#                     WHERE row_num = 1
+#                     ORDER BY state_id;'''
+#                )
+#     res = None
+#     try:
+#         with engine.connect() as conn:
+#             res = conn.execute(sql)
+#     except Exception as e:
+#         print(f"Error: {str(e)}")
+#     else:
+#         return res.fetchall()
 
 
 # def fetch_wildfires_count_by_state():
