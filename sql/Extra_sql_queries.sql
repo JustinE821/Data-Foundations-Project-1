@@ -91,6 +91,44 @@ FROM wildfire w
 INNER JOIN wildfiresize ws ON w.wildfire_id = ws.wildfire_id
 WHERE ws.acreage > 5;
 
+SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class
+FROM wildfirelocation wl
+INNER JOIN wildfiresize ws ON wl.wildfire_id=ws.wildfire_id
+WHERE acreage > 25;
 
+SELECT DATE_PART('month', report_date) AS fires_by_month, COUNT(wildfire_id)
+FROM wildfire
+GROUP BY DATE_PART('month', report_date)
+ORDER BY fires_by_month ASC;
+
+
+
+
+SELECT w.state_id, SUM(ws.acreage)
+FROM wildfire w
+INNER JOIN wildfiresize ws ON w.wildfire_id=ws.wildfire_id
+GROUP BY w.state_id
+ORDER BY SUM(ws.acreage) DESC;
+
+
+
+DELETE FROM wildfiresize
+WHERE wildfire_id > 5000 AND wildfire_id < 7000;
+
+DELETE FROM wildfirelocation
+WHERE wildfire_id > 5000 AND wildfire_id < 7000;
+
+DELETE FROM wildfire
+WHERE wildfire_id > 5000 AND wildfire_id < 7000;
+
+SELECT COUNT(wildfire_id) 
+FROM wildfire
+WHERE wildfire_id < 10000;
+
+SELECT name_of_table, num_of_rows_affected, num_of_rows_attempted, timestamp, level  
+FROM uploadlogs
+ORDER BY timestamp DESC;
+
+SELECT COUNT(wildfire_id) FROM wildfire
 
 

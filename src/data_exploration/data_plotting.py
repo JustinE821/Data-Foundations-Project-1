@@ -5,6 +5,8 @@ import folium
 from folium.plugins import HeatMap
 from datetime import datetime, timedelta
 
+
+
 def graph_fire_count_by_month(rows):
     month_list = list()
     fire_count_list = list()

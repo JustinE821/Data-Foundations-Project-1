@@ -18,7 +18,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 # There are 588,733 records in wildfire_df
-ROW_LIMIT = 590_000
+ROW_LIMIT = 10000
 BATCH_SIZE = 5_000
 START_INDEX = 0
 

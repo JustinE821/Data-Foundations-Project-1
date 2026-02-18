@@ -69,22 +69,30 @@ def show_graphs():
 
 def main():
     # Load data and standardize
-    #df_list = get_dataframes()
+    df_list = get_dataframes()
+
+    # show_original_dataframes(*df_list)
+    
+    #Show
+    
 
     # Combine DataFrames and drop duplicates
-    #combined_df = combine_dataframes(df_list)
+    combined_df = combine_dataframes(df_list)
     #print(combined_df.shape)
 
     # Break DataFrame into tables
-    #[wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
+    [wildfire_df, wildfire_size_df, wildfire_location_df] = split_dataframes(combined_df=combined_df)
+
+
+    show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
     # Write data to db
-    #upload_tables(wildfire_df=wildfire_df, wildfire_size_df=wildfire_size_df, wildfire_location_df=wildfire_location_df)
+    upload_tables(wildfire_df=wildfire_df, wildfire_size_df=wildfire_size_df, wildfire_location_df=wildfire_location_df)
     
     #show_original_dataframes(*df_list)
     #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
-    show_graphs()
+    # show_graphs()
 
 if __name__ == "__main__":
     main()
