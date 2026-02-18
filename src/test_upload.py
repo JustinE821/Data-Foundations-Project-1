@@ -276,16 +276,13 @@ def test_fetch_states_with_highest_acreage_sums_success():
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
-    # Patch init_conn to return our mock engine
-    
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_states_with_highest_acreage_sums(mock_engine)
 
 
 
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT w.state_id, SUM(ws.acreage)' in str(args[0])  # Check SQL string
     assert mock_result == result
