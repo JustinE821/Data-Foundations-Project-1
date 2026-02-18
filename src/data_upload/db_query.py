@@ -7,6 +7,9 @@ from pathlib import Path
 import time
 
 
+
+
+
 def fetch_fire_count_by_month():
 
     engine = init_conn()
@@ -53,54 +56,7 @@ def fetch_fire_coordinates():
 
 
 
-def fetch_wildfires_count_by_state():
 
-    engine = init_conn()
-    sql = text('''SELECT state_id, COUNT(state_id) 
-                FROM wildfire
-                GROUP BY state_id
-                ORDER BY COUNT(state_id) DESC;'''
-               )
-    res = None
-    with engine.connect() as conn:
-        res = conn.execute(sql)
-
-
-
-    return res.fetchall()
-
-
-def fetch_wildfires_cause_by_state(state):
-
-    engine = init_conn()
-    state_mapping = {"state": state}
-    sql = text('''SELECT w.state_id, wc.cause_text, COUNT(w.state_id) 
-                FROM wildfire w
-                INNER JOIN wildfirecause wc ON w.cause_id=wc.cause_id
-                WHERE w.state_id = :state 
-                GROUP BY w.state_id, wc.cause_text
-                ORDER BY w.state_id, COUNT(w.state_id) DESC;'''
-               )
-    
-    with engine.connect() as conn:
-        res = conn.execute(sql, state_mapping)
-        print(res.fetchall())
-
-def fetch_fire_count_by_state():
-    
-    engine = init_conn()
-    sql = text('''SELECT state_id, COUNT(state_id) 
-                    FROM wildfire
-                    GROUP BY state_id
-                    ORDER BY COUNT(state_id) DESC;'''
-               )
-    try:
-        with engine.connect() as conn:
-            res = conn.execute(sql)
-    except Exception as e:
-        print(f"Error: {str(e)}")
-    else:
-        return res.fetchall()   
 
 def fetch_top_fire_cause_by_state():
 
@@ -128,7 +84,7 @@ def fetch_top_fire_cause_by_state():
         print(f"Error: {str(e)}")
     else:
         return res.fetchall()
-
+    
 def fetch_wildfire_count_by_type(fire_size):
 
     engine = init_conn()
@@ -167,7 +123,6 @@ def fetch_number_of_fires(fire_size):
         return res.fetchall()
     
 
-
 def fetch_top_causes():
     engine = init_conn()
     sql = text('''WITH ranked_causes AS (
@@ -194,3 +149,82 @@ def fetch_top_causes():
         print(f"Error: {str(e)}")
     else:
         return res.fetchall()
+
+
+
+
+# def fetch_wildfires_count_by_state():
+
+#     engine = init_conn()
+#     sql = text('''SELECT state_id, COUNT(state_id) 
+#                 FROM wildfire
+#                 GROUP BY state_id
+#                 ORDER BY COUNT(state_id) DESC;'''
+#                )
+#     res = None
+#     with engine.connect() as conn:
+#         res = conn.execute(sql)
+
+
+
+#     return res.fetchall()
+
+# def fetch_acres_burned_by_state():
+#     engine = init_conn()
+
+
+#     try:
+#         sql = text('''SELECT w.state_id, SUM(ws.acreage)
+#                         FROM wildfire w
+#                         INNER JOIN wildfiresize ws ON w.wildfire_id=ws.wildfire_id
+#                         GROUP BY w.state_id
+#                         ORDER BY SUM(ws.acreage) DESC;'''
+#                    )
+#         res = None
+#         with engine.connect() as conn:
+#             res = conn.execute(sql).fetchall()
+#         return res
+#     except Exception as e:
+#         print(f"ERROR: {e}")
+
+
+# def fetch_wildfires_cause_by_state(state):
+
+#     engine = init_conn()
+#     state_mapping = {"state": state}
+#     sql = text('''SELECT w.state_id, wc.cause_text, COUNT(w.state_id) 
+#                 FROM wildfire w
+#                 INNER JOIN wildfirecause wc ON w.cause_id=wc.cause_id
+#                 WHERE w.state_id = :state 
+#                 GROUP BY w.state_id, wc.cause_text
+#                 ORDER BY w.state_id, COUNT(w.state_id) DESC;'''
+#                )
+    
+#     with engine.connect() as conn:
+#         res = conn.execute(sql, state_mapping)
+#         print(res.fetchall())
+
+# def fetch_fire_count_by_state():
+    
+#     engine = init_conn()
+#     sql = text('''SELECT state_id, COUNT(state_id) 
+#                     FROM wildfire
+#                     GROUP BY state_id
+#                     ORDER BY COUNT(state_id) DESC;'''
+#                )
+#     try:
+#         with engine.connect() as conn:
+#             res = conn.execute(sql)
+#     except Exception as e:
+#         print(f"Error: {str(e)}")
+#     else:
+#         return res.fetchall()   
+
+
+
+
+    
+
+    
+
+
