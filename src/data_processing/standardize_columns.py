@@ -10,12 +10,13 @@ from data_processing.constants import OREGON_TO_STANDARD_COLUMN_MAPPING, CALIFOR
 def compute_date_cols(column_list):
     return [column for column in column_list if "date" in column.lower()]
 
+#Converts datetime to date
 def convert_datetime_to_date(df, date_columns):
     for date_col in date_columns:
         if isinstance(df[date_col].iloc[0], datetime.datetime):
             df[date_col] = df[date_col].dt.date
 
-
+#This function removes entries from datasets which are not from the 2010s
 def limit_date_range(df):
     START_DATE = datetime.date(2010, 1, 1)
     END_DATE = datetime.date(2019, 12, 31)
@@ -23,6 +24,7 @@ def limit_date_range(df):
     
     return df
 
+#This function generates a size_class column for datasets which do not have it
 def create_size_class(df, ACREAGE_COL):
     acreage = df[ACREAGE_COL]
     size_class_list = list()
@@ -48,6 +50,7 @@ def create_size_class(df, ACREAGE_COL):
     size_class = pd.Series(size_class_list)
     return size_class
 
+#Remaps dataset column names to reflect the standardized structure
 def standardize_column_names(national_df, new_york_df, oregon_df, california_df):
     national_df = national_df.rename(columns=NATIONAL_TO_STANDARD_COLUMN_MAPPING)
     new_york_df = new_york_df.rename(columns=NEW_YORK_TO_STANDARD_COLUMN_MAPPING)

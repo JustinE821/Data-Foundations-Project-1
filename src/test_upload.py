@@ -6,10 +6,10 @@ from data_upload.db_upload import upload_table
 from data_upload.table_models import wildfire_table, wildfire_location_table
 import datetime
 import pandas as pd
-
 from data_upload.db_query import fetch_fire_count_by_month, fetch_fire_coordinates, fetch_number_of_fires, fetch_top_causes, fetch_wildfire_count_by_type
 from unittest.mock import MagicMock
 from data_upload.db_connection import init_conn
+import sys
 
 @pytest.fixture
 def engine_connection():
@@ -159,7 +159,7 @@ def test_SQLHandler_emit_info(sql_handler):
     assert arg2.value['time_elapsed'] == 0.2343
 
 
-def test_fetch_fire_coordinates(engine_connection):
+def test_fetch_fire_coordinates_success(engine_connection):
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -171,7 +171,6 @@ def test_fetch_fire_coordinates(engine_connection):
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
     # Patch init_conn to return our mock engine
-    import sys
     sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
@@ -182,7 +181,7 @@ def test_fetch_fire_coordinates(engine_connection):
     assert 'SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class' in str(args[0])  # Check SQL string
     assert mock_result == result
 
-def test_fetch_fire_count_by_month():
+def test_fetch_fire_count_by_month_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -194,8 +193,7 @@ def test_fetch_fire_count_by_month():
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
     # Patch init_conn to return our mock engine
-    import sys
-    sys.modules['data_upload.db_connection'].init_conn = lambda: mock_engine
+    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_fire_count_by_month(mock_engine)
@@ -208,7 +206,7 @@ def test_fetch_fire_count_by_month():
     assert mock_result == result
 
 
-def test_fetch_wildfire_content_by_type():
+def test_fetch_wildfire_content_by_type_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -220,8 +218,7 @@ def test_fetch_wildfire_content_by_type():
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
     # Patch init_conn to return our mock engine
-    import sys
-    sys.modules['data_upload.db_connection'].init_conn = lambda: mock_engine
+    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_wildfire_count_by_type(10, mock_engine)
@@ -233,7 +230,7 @@ def test_fetch_wildfire_content_by_type():
     assert 'SELECT wc.cause_text, COUNT(w.cause_id)' in str(args[0])  # Check SQL string
     assert mock_result == result
 
-def test_fetch_number_of_fires():
+def test_fetch_number_of_fires_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -245,8 +242,7 @@ def test_fetch_number_of_fires():
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
     # Patch init_conn to return our mock engine
-    import sys
-    sys.modules['data_upload.db_connection'].init_conn = lambda: mock_engine
+    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_number_of_fires(10 ,mock_engine)
@@ -259,7 +255,7 @@ def test_fetch_number_of_fires():
     assert mock_result == result
 
 
-def test_fetch_top_causes():
+def test_fetch_top_causes_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -271,8 +267,8 @@ def test_fetch_top_causes():
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
     # Patch init_conn to return our mock engine
-    import sys
-    sys.modules['data_upload.db_connection'].init_conn = lambda: mock_engine
+    
+    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_top_causes(mock_engine)
