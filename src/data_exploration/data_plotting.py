@@ -116,3 +116,20 @@ def graph_top_fire_cause_by_state(top_cause_rows, total_fires):
         label_list.append(top_cause_rows[index][0])
         cause_type.append(top_cause_rows[index][1])
         count_list.append(top_cause_rows[index][2])
+
+def graph_states_with_highest_acreage_sums(rows):
+    label_list = list()
+    acreage_list = list()
+
+    for x, y in rows:
+        label_list.append(x)
+        acreage_list.append(int(float(y)/1000000))
+    
+    print(label_list)
+    print(acreage_list)
+    plt.bar(label_list, acreage_list, zorder=2)
+    plt.title('Ten States With The Most Burned Acreage')
+    plt.xlabel('State')
+    plt.ylabel('Acres in millions')
+    plt.grid(True, zorder=0)
+    plt.show()

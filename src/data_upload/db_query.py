@@ -151,7 +151,23 @@ def fetch_top_causes():
         return res.fetchall()
 
 
+def fetch_states_with_highest_acreage_sums():
+    engine = init_conn()
 
+    try:
+        sql = text('''SELECT w.state_id, SUM(ws.acreage)
+                        FROM wildfire w
+                        INNER JOIN wildfiresize ws ON w.wildfire_id=ws.wildfire_id
+                        GROUP BY w.state_id
+                        ORDER BY SUM(ws.acreage) DESC
+                        LIMIT 10;'''
+                   )
+        res = None
+        with engine.connect() as conn:
+            res = conn.execute(sql).fetchall()
+        return res
+    except Exception as e:
+        print(f"ERROR: {e}")
 
 # def fetch_wildfires_count_by_state():
 
