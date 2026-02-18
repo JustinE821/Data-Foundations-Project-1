@@ -17,7 +17,7 @@ def graph_fire_count_by_month(rows):
         fire_count_list.append(rows[index][1])
 
     plt.bar(month_list, fire_count_list, zorder=3)
-    plt.title("Number of fires by month in the 2010s")
+    plt.title("Number of Fires by Month in the 2010s")
     plt.ylabel("Number of fires")
     plt.xlabel("Months")
     plt.grid(True)
@@ -58,7 +58,7 @@ def graph_state_top_causes(rows):
         count_list.append(rows[index][1])
 
     plt.pie(count_list, labels=label_list)
-    plt.title("Top causes from every state")
+    plt.title("Top Causes from Every State")
 
     plt.savefig("./src/static/images/top_causes_from_every_state.png")
     plt.show()
@@ -97,7 +97,7 @@ def graph_top_causes(cause_rows, total_fires):
             count_list.append(subplot_cause_rows[index][1])
         plt.bar(cause_list, count_list, zorder=3)
         plt.grid(True)
-        plt.title(f"Number of fires over {min_acreage[current_subplot]} acres by type")
+        plt.title(f"Number of Fires Over {min_acreage[current_subplot]} Acres by Type")
         plt.xlabel("Fire types")
         plt.ylabel("Number of fires")
 
@@ -117,3 +117,19 @@ def graph_top_fire_cause_by_state(top_cause_rows, total_fires):
         label_list.append(top_cause_rows[index][0])
         cause_type.append(top_cause_rows[index][1])
         count_list.append(top_cause_rows[index][2])
+
+def graph_states_with_highest_acreage_sums(rows):
+    label_list = list()
+    acreage_list = list()
+
+    for x, y in rows:
+        label_list.append(x)
+        acreage_list.append(int(float(y)/1000000))
+    
+    plt.bar(label_list, acreage_list, zorder=2)
+    plt.title('Ten States With the Most Burned Acreage')
+    plt.xlabel('State')
+    plt.ylabel('Acres in millions')
+    plt.grid(True, zorder=0)
+    plt.savefig("./src/static/images/states_with_highest_acreage_sums.png")
+    plt.show()
