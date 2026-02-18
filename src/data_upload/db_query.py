@@ -135,8 +135,9 @@ def fetch_top_causes(engine=None):
         return res.fetchall()
 
 
-def fetch_states_with_highest_acreage_sums():
-    engine = init_conn()
+def fetch_states_with_highest_acreage_sums(engine=None):
+    if engine == None:
+        engine = init_conn()
 
     try:
         sql = text('''SELECT w.state_id, SUM(ws.acreage)

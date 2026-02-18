@@ -6,7 +6,7 @@ from data_upload.db_upload import upload_table
 from data_upload.table_models import wildfire_table, wildfire_location_table
 import datetime
 import pandas as pd
-from data_upload.db_query import fetch_fire_count_by_month, fetch_fire_coordinates, fetch_number_of_fires, fetch_top_causes, fetch_wildfire_count_by_type
+from data_upload.db_query import fetch_fire_count_by_month, fetch_fire_coordinates, fetch_number_of_fires, fetch_top_causes, fetch_wildfire_count_by_type, fetch_states_with_highest_acreage_sums
 from unittest.mock import MagicMock
 from data_upload.db_connection import init_conn
 import sys
@@ -159,7 +159,7 @@ def test_SQLHandler_emit_info(sql_handler):
     assert arg2.value['time_elapsed'] == 0.2343
 
 
-def test_fetch_fire_coordinates_success(engine_connection):
+def test_fetch_fire_coordinates_success():
     mock_conn = MagicMock()
     mock_engine = MagicMock()
     
@@ -278,4 +278,29 @@ def test_fetch_top_causes_success():
     # Verify that execute() was called with the correct SQL
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT cause_text, COUNT(cause_text)' in str(args[0])  # Check SQL string
+    assert mock_result == result
+
+def test_fetch_states_with_highest_acreage_sums_success():
+    mock_conn = MagicMock()
+    mock_engine = MagicMock()
+    
+    #Setting mock db to contain some values
+    mock_result = [("VA", 1234567890.0), ("AK", 123456789.0), ("CA", 12345678.0), ("OR", 1234567.0), ("NV", 123456.0), ("WA", 12345.0), ("TX", 1234.0), ("MT", 123.0), ("AZ", 12.0), ("ID", 12.0)]
+    mock_conn.execute.return_value.fetchall.return_value = mock_result
+    
+    # When connect() is called on the engine, return the mock connection
+    mock_engine.connect.return_value.__enter__.return_value = mock_conn
+    
+    # Patch init_conn to return our mock engine
+    
+    sys.modules['data_upload.db_connection'].init_conn = mock_engine
+
+    # Call the function with mock engine
+    result = fetch_states_with_highest_acreage_sums(mock_engine)
+
+
+
+    # Verify that execute() was called with the correct SQL
+    args, kwargs = mock_conn.execute.call_args
+    assert 'SELECT w.state_id, SUM(ws.acreage)' in str(args[0])  # Check SQL string
     assert mock_result == result
