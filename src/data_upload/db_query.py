@@ -9,7 +9,7 @@ import time
 
 
 
-
+# Gathers all fire entries and groups them by month
 def fetch_fire_count_by_month(engine=None):
 
     if engine == None:
@@ -31,7 +31,7 @@ def fetch_fire_count_by_month(engine=None):
     except Exception as e:
         print(f"ERROR: {e}")
 
-
+# Returns all fire locations, as well as the severity of said fires
 def fetch_fire_coordinates(engine=None):
 
     if engine == None:
@@ -61,8 +61,8 @@ def fetch_fire_coordinates(engine=None):
 
 
 
-    
-def fetch_wildfire_count_by_type(fire_size, engine=None):
+# This function gathers the top 4 fire types within a certain acreage range
+def fetch_wildfire_count_by_type(fire_size=5, engine=None):
 
     if engine == None:
         engine = init_conn()
@@ -74,7 +74,7 @@ def fetch_wildfire_count_by_type(fire_size, engine=None):
                     WHERE ws.acreage > :fire_size
                     GROUP BY wc.cause_text
                     ORDER BY COUNT(w.cause_id) DESC
-                    LIMIT 5;'''
+                    LIMIT 4;'''
                )
     res = None
     try:
@@ -85,6 +85,7 @@ def fetch_wildfire_count_by_type(fire_size, engine=None):
     else:
         return res.fetchall()
     
+#Function returns the number of fires that occured within a certain acreage range
 def fetch_number_of_fires(fire_size, engine=None):
     if engine == None:
         engine = init_conn()
@@ -103,7 +104,7 @@ def fetch_number_of_fires(fire_size, engine=None):
     else:
         return res.fetchall()
     
-
+#This function returns most common cause of fires in each individual state
 def fetch_top_causes(engine=None):
     if engine == None:
         engine = init_conn()

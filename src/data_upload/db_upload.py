@@ -22,6 +22,7 @@ ROW_LIMIT = 10000
 BATCH_SIZE = 5_000
 START_INDEX = 0
 
+#Helper function used to establish connection to the database, and then call the main upload table function
 def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
      
      try:
@@ -35,6 +36,7 @@ def upload_tables(wildfire_df, wildfire_size_df, wildfire_location_df):
           logger.error(f"Error: {str(e)}")
           print(e)
 
+# This function adds data to the database in bulk, and ignores entries which already exist in the database. 
 def upload_table(df, engine, table, table_name, start_index, row_limit, batch_size):
 
      stmt = insert(table).on_conflict_do_nothing(index_elements=['wildfire_id']).returning(table)

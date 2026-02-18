@@ -47,6 +47,7 @@ def get_dataframes():
 
     [national_df, new_york_df, oregon_df, california_df] = standardize_column_names(national_df=national_df, new_york_df=new_york_df, oregon_df=oregon_df, california_df=california_df)
 
+    # Limit fire start date range
     national_df = limit_date_range(national_df)
     new_york_df = limit_date_range(new_york_df)
     oregon_df = limit_date_range(oregon_df)
