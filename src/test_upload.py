@@ -7,9 +7,8 @@ from data_upload.table_models import wildfire_table, wildfire_location_table
 import datetime
 import pandas as pd
 from data_upload.db_query import fetch_fire_count_by_month, fetch_fire_coordinates, fetch_number_of_fires, fetch_top_causes, fetch_wildfire_count_by_type
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch, Mock
 from data_upload.db_connection import init_conn
-import sys
 
 @pytest.fixture
 def engine_connection():
@@ -170,13 +169,11 @@ def test_fetch_fire_coordinates_success(engine_connection):
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
-    # Patch init_conn to return our mock engine
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_fire_coordinates(mock_engine)
 
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT wl.longitude, wl.latitude, ws.acreage, ws.size_class' in str(args[0])  # Check SQL string
     assert mock_result == result
@@ -192,15 +189,13 @@ def test_fetch_fire_count_by_month_success():
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
-    # Patch init_conn to return our mock engine
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_fire_count_by_month(mock_engine)
 
 
 
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT DATE_PART' in str(args[0])  # Check SQL string
     assert mock_result == result
@@ -217,15 +212,13 @@ def test_fetch_wildfire_content_by_type_success():
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
-    # Patch init_conn to return our mock engine
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_wildfire_count_by_type(10, mock_engine)
 
 
 
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT wc.cause_text, COUNT(w.cause_id)' in str(args[0])  # Check SQL string
     assert mock_result == result
@@ -240,20 +233,14 @@ def test_fetch_number_of_fires_success():
     
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
-    
-    # Patch init_conn to return our mock engine
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_number_of_fires(10 ,mock_engine)
 
-
-
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT COUNT(w.wildfire_id)' in str(args[0])  # Check SQL string
     assert mock_result == result
-
 
 def test_fetch_top_causes_success():
     mock_conn = MagicMock()
@@ -261,21 +248,19 @@ def test_fetch_top_causes_success():
     
     #Setting mock db to contain some values
     mock_result = [("Arson", 6.0), ("Equipment/Vehicle", 1.0), ("Juvenile", 1.0), ("Natural", 12.0), ("Open Burning", 32.0)]
-    mock_conn.execute.return_value.fetchall.return_value = mock_result
-    
+    #If any entry is removed from mock result after it is copied, the assert later in the code will fail
+    mock_conn.execute.return_value.fetchall.return_value = mock_result.copy()
+    #mock_result.remove(("Arson", 6.0))
+
+
     # When connect() is called on the engine, return the mock connection
     mock_engine.connect.return_value.__enter__.return_value = mock_conn
     
-    # Patch init_conn to return our mock engine
-    
-    sys.modules['data_upload.db_connection'].init_conn = mock_engine
 
     # Call the function with mock engine
     result = fetch_top_causes(mock_engine)
 
-
-
-    # Verify that execute() was called with the correct SQL
+    # Verify the SQL ran in the mocked function is correct
     args, kwargs = mock_conn.execute.call_args
     assert 'SELECT cause_text, COUNT(cause_text)' in str(args[0])  # Check SQL string
     assert mock_result == result
