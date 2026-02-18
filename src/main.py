@@ -10,8 +10,8 @@ from data_processing.df_load_driver import get_dataframes
 from data_processing.combine_dataframes import combine_dataframes
 from data_processing.split_dataframes import split_dataframes
 from data_upload.db_upload import upload_tables
-from data_upload.db_query import fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_top_causes, fetch_fire_coordinates, fetch_fire_count_by_month
-from data_exploration.data_plotting import graph_top_causes, graph_state_top_causes, plot_usa_heatmap, graph_fire_count_by_month
+from data_upload.db_query import fetch_wildfire_count_by_type, fetch_number_of_fires, fetch_top_causes, fetch_fire_coordinates, fetch_fire_count_by_month, fetch_states_with_highest_acreage_sums
+from data_exploration.data_plotting import graph_top_causes, graph_state_top_causes, plot_usa_heatmap, graph_fire_count_by_month, graph_states_with_highest_acreage_sums
 
 def show_original_dataframes(national_df, new_york_df, oregon_df, california_df):
     print('-----------------------')
@@ -59,12 +59,9 @@ def show_graphs():
     if fires_by_month != None:
         graph_fire_count_by_month(fires_by_month)
 
-    
-
-
-
-    
-
+    states_with_most_acreage_burned = fetch_states_with_highest_acreage_sums()
+    if states_with_most_acreage_burned != None:
+        graph_states_with_highest_acreage_sums(states_with_most_acreage_burned)
 
 
 def main():
@@ -92,7 +89,7 @@ def main():
     #show_original_dataframes(*df_list)
     #show_table_dataframes(wildfire_df, wildfire_size_df, wildfire_location_df)
 
-    # show_graphs()
+    #show_graphs()
 
 if __name__ == "__main__":
     main()
